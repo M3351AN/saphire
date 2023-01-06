@@ -90,11 +90,11 @@ DWORD WINAPI main(PVOID base)
 			34,//
 			158,//
 			75,//7
-			461,//
+			461,//CCSWeaponData
 			483,//inaccuracy
 			453,//
 			484,//
-			285,//
+			285,//WEAPONSHOOTPOSITION
 			226,//
 			247,//
 			27,//
