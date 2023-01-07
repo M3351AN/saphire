@@ -1265,6 +1265,7 @@ const char* GetWeaponName(int id)
 
 #define VERSION crypt_str(u8"saphire[Kai]")
 auto menuPos = ImVec2{ 0,0 };
+static int tab_anim = 42;
 void c_menu::waterwark()
 {
 	if (!vars.menu.watermark)
@@ -1362,15 +1363,16 @@ void c_menu::waterwark()
 
 	}
 	ImGui::End();
+	ImGui::PopStyleVar(2);
 	ImGui::Begin("moe", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_::ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_::ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoNav);
 	{
-		ImGui::SetWindowSize(ImVec2(304, 460));
-		ImGui::SetWindowPos(ImVec2(menuPos.x - ImGui::GetWindowSize().x, menuPos.y + ImGui::GetWindowSize().y - 460));
+		ImGui::SetWindowSize(ImVec2(315, 470));
+		ImGui::SetWindowPos(ImVec2(menuPos.x - ImGui::GetWindowSize().x + 100 - 0.4 * tab_anim, menuPos.y));
 		if (hooks::menu_open)
-			ImGui::Image(getAvatarTexture(5), ImGui::GetWindowSize(), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
+			ImGui::Image(getAvatarTexture(5), ImVec2(ImGui::GetWindowSize().x - 10, ImGui::GetWindowSize().y - 10), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
 	}
 	ImGui::End();
-	ImGui::PopStyleVar(2);
+	
 }
 char* config_sel;
 
@@ -1386,7 +1388,6 @@ void c_menu::draw(bool is_open)
 		bool hellllo = GetKeyState(VK_INSERT);
 		bool hellllo2 = GetKeyState(VK_HOME);
 		static float tab_anim_br = 0.f;
-		static int tab_anim = 42;
 		bool tab_hovered = false;
 		
 		if (is_open && public_alpha < 1)
@@ -1473,7 +1474,7 @@ void c_menu::draw(bool is_open)
 					else if (!tab_hovered && tab_anim > 42 )
 						tab_anim -= 8;*/
 					if (tab_hovered && tab_anim_br < 1.f)
-						tab_anim_br += 0.05f;
+						tab_anim_br += 0.1f;
 					else if (!tab_hovered && tab_anim_br > 0.f)
 						tab_anim_br -= 0.05f;
 				}
