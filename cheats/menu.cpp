@@ -507,7 +507,7 @@ bool LabelClick(const char* label, bool* v, const char* unique_id)
 }
 ImTextureID getAvatarTexture(int team) 
 {
-	return team == 2 ? c_menu::get().tt_a : team == 3 ? c_menu::get().ct_a : team == 4 ? c_menu::get().luv_u : nullptr;
+	return team == 2 ? c_menu::get().tt_a : team == 3 ? c_menu::get().ct_a : team == 4 ? c_menu::get().luv_u : team == 5 ? c_menu::get().shigure :nullptr;
 }
 void draw_keybind(const char* label, key_bind* key_bind, const char* unique_id, bool with_color = false)
 {
@@ -1364,10 +1364,10 @@ void c_menu::waterwark()
 	ImGui::End();
 	ImGui::Begin("moe", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_::ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_::ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoNav);
 	{
-		ImGui::SetWindowPos(ImVec2(menuPos.x, menuPos.y - 128));
-		ImGui::SetWindowSize(ImVec2(128, 128));
+		ImGui::SetWindowSize(ImVec2(304, 460));
+		ImGui::SetWindowPos(ImVec2(menuPos.x - ImGui::GetWindowSize.x, menuPos.y + ImGui::GetWindowSize.y - 460));
 		if (hooks::menu_open)
-			ImGui::Image(getAvatarTexture(4), ImVec2(128, 128), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
+			ImGui::Image(getAvatarTexture(5), ImGui::GetWindowSize, ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
 	}
 	ImGui::End();
 	ImGui::PopStyleVar(2);
