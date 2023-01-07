@@ -161,7 +161,9 @@ namespace hooks
 		if (c_menu::get().luv_u == nullptr) {
 			D3DXCreateTextureFromFileInMemory(pDevice, &luv_u, sizeof(luv_u), &c_menu::get().luv_u);
 		}
-		
+		if (c_menu::get().shigure == nullptr) {
+			D3DXCreateTextureFromFileInMemory(pDevice, &shigure_luv, sizeof(shigure_luv), &c_menu::get().shigure);
+		}
 		ImGui_ImplDX9_CreateDeviceObjects();
 		d3d_init = true;
 	}

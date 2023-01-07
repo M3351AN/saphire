@@ -507,7 +507,7 @@ bool LabelClick(const char* label, bool* v, const char* unique_id)
 }
 ImTextureID getAvatarTexture(int team) 
 {
-	return team == 2 ? c_menu::get().tt_a : team == 3 ? c_menu::get().ct_a : team == 4 ? c_menu::get().luv_u : nullptr;
+	return team == 2 ? c_menu::get().tt_a : team == 3 ? c_menu::get().ct_a : team == 4 ? c_menu::get().luv_u : team == 5 ? c_menu::get().shigure :nullptr;
 }
 void draw_keybind(const char* label, key_bind* key_bind, const char* unique_id, bool with_color = false)
 {
@@ -1264,6 +1264,8 @@ const char* GetWeaponName(int id)
 }
 
 #define VERSION crypt_str(u8"saphire[Kai]")
+auto menuPos = ImVec2{ 0,0 };
+static int tab_anim = 42;
 void c_menu::waterwark()
 {
 	if (!vars.menu.watermark)
@@ -1329,6 +1331,8 @@ void c_menu::waterwark()
 		seted = false;
 	if (seted)
 		ImGui::SetNextWindowPos(ImVec2(200, 200));
+
+	
 	ImGui::Begin("wwwwwwww", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_::ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_::ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoNav);
 	{
 
@@ -1360,21 +1364,30 @@ void c_menu::waterwark()
 	}
 	ImGui::End();
 	ImGui::PopStyleVar(2);
+	ImGui::Begin("moe", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_::ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_::ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoNav);
+	{
+		ImGui::SetWindowSize(ImVec2(315, 470));
+		ImGui::SetWindowPos(ImVec2(menuPos.x - ImGui::GetWindowSize().x + 100 - 0.4 * tab_anim, menuPos.y));
+		if (hooks::menu_open)
+			ImGui::Image(getAvatarTexture(5), ImVec2(ImGui::GetWindowSize().x - 10, ImGui::GetWindowSize().y - 10), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
+	}
+	ImGui::End();
+	
 }
 char* config_sel;
+
 void c_menu::draw(bool is_open)
 {
 		auto st = ImGui::GetStyle();
 		st.Colors[ImGuiCol_ResizeGrip] = ImColor(0, 0, 0, 0);
 		st.Colors[ImGuiCol_ResizeGripActive] = ImColor(0, 0, 0, 0);
 		st.Colors[ImGuiCol_ResizeGripHovered] = ImColor(0, 0, 0, 0);
-		auto s = ImVec2{}, p = ImVec2{}, GuiSize = ImVec2{ 653, 460 };
+		auto s = ImVec2{}, p = ImVec2{}, GuiSize = ImVec2{ 655, 460 };
 		std::string uname, build, build_at, sponsor;
 		uname = comp_name(); build = "DEV"; build_at = __DATE__; build_at += " "; build_at += __TIME__; sponsor = "modify. m1tZw";
 		bool hellllo = GetKeyState(VK_INSERT);
 		bool hellllo2 = GetKeyState(VK_HOME);
 		static float tab_anim_br = 0.f;
-		static int tab_anim = 42;
 		bool tab_hovered = false;
 		
 		if (is_open && public_alpha < 1)
@@ -1396,6 +1409,7 @@ void c_menu::draw(bool is_open)
 		static bool drugs = false;
 		static float switch_alpha = 1.f;
 		static int next_id = -1;
+		menuPos = ImGui::GetWindowPos();
 		ImVec2 pad = ImGui::GetStyle().WindowPadding;
 		{//draw
 			s = ImVec2(ImGui::GetWindowSize().x - pad.x * 2, ImGui::GetWindowSize().y - pad.y * 2); p = ImVec2(ImGui::GetWindowPos().x + pad.x, ImGui::GetWindowPos().y + pad.y); auto draw = ImGui::GetWindowDrawList();
@@ -1437,13 +1451,13 @@ void c_menu::draw(bool is_open)
 					ImGui::SetCursorPosY(200);
 					if (ImGui::tab("W", "Visuals", "Chams, ESP, World", tab == 3, tab_anim) && last_tab == tab && !preview_reverse) tab = 3; if (ImGui::IsItemHovered())tab_hovered = true;
 					ImGui::SetCursorPosY(245);
-					if (ImGui::tab("I", "Skins", "Skincahnger", tab == 4, tab_anim) && last_tab == tab && !preview_reverse) tab = 4; if (ImGui::IsItemHovered())tab_hovered = true;
+					if (ImGui::tab("I", "Skins", "Skinchanger", tab == 4, tab_anim) && last_tab == tab && !preview_reverse) tab = 4; if (ImGui::IsItemHovered())tab_hovered = true;
 					ImGui::SetCursorPosY(295);
 					if (ImGui::tab("M", "Misc", "Movement, Gameplay", tab == 5, tab_anim) && last_tab == tab && !preview_reverse) tab = 5; if (ImGui::IsItemHovered())tab_hovered = true;
 					ImGui::SetCursorPosY(345);
 					if (ImGui::tab("C", "Configs", "Save, Load, Share configs", tab == 6, tab_anim) && last_tab == tab && !preview_reverse) tab = 6; if (ImGui::IsItemHovered())tab_hovered = true;
-					ImGui::SetCursorPosY(390);
-					if (ImGui::tab("S", "Lua", "Cheat improvements by user", tab == 7, tab_anim) && last_tab == tab && !preview_reverse) tab = 7; if (ImGui::IsItemHovered())tab_hovered = true;
+					//ImGui::SetCursorPosY(390);
+					//if (ImGui::tab("S", "Lua", "Cheat improvements by user", tab == 7, tab_anim) && last_tab == tab && !preview_reverse) tab = 7; if (ImGui::IsItemHovered())tab_hovered = true;
 					ImGui::PopFont();
 				}
 				if (!vars.menu.block_BAR) {
@@ -1460,7 +1474,7 @@ void c_menu::draw(bool is_open)
 					else if (!tab_hovered && tab_anim > 42 )
 						tab_anim -= 8;*/
 					if (tab_hovered && tab_anim_br < 1.f)
-						tab_anim_br += 0.05f;
+						tab_anim_br += 0.1f;
 					else if (!tab_hovered && tab_anim_br > 0.f)
 						tab_anim_br -= 0.05f;
 				}
