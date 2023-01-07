@@ -1283,7 +1283,7 @@ void c_menu::waterwark()
 		watermark += crypt_str(" | ") + comp_name();
 
 	if (vars.misc.watermarkadditives[WATERMARK_FPS])
-		watermark += crypt_str(" | ") + std::to_string(csgo.globals.framerate) + crypt_str(" fps ");
+		watermark += crypt_str(" | ") + std::to_string(csgo.globals.framerate) + crypt_str(" F/s ");
 
 	if (m_engine()->IsInGame())
 	{
@@ -1293,10 +1293,10 @@ void c_menu::waterwark()
 		{
 			auto server = nci->GetAddress();
 
-			if (!strcmp(server, crypt_str("loopback")))
-				server = crypt_str("local server");
+			if (!strcmp(server, crypt_str("loopBack")))
+				server = crypt_str("localServer");
 			else if (m_gamerules()->m_bIsValveDS())
-				server = crypt_str("valve server");
+				server = crypt_str("valveServer");
 
 			auto tickrate = std::to_string((int)(1.0f / m_globals()->m_intervalpertick));
 
@@ -1314,7 +1314,7 @@ void c_menu::waterwark()
 	else
 	{
 		if (vars.misc.watermarkadditives[WATERMARK_SERVER])
-			watermark += crypt_str(" | no connection ");
+			watermark += crypt_str(" | noConnection ");
 
 	}
 
