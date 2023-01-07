@@ -1368,7 +1368,7 @@ void c_menu::draw(bool is_open)
 		st.Colors[ImGuiCol_ResizeGrip] = ImColor(0, 0, 0, 0);
 		st.Colors[ImGuiCol_ResizeGripActive] = ImColor(0, 0, 0, 0);
 		st.Colors[ImGuiCol_ResizeGripHovered] = ImColor(0, 0, 0, 0);
-		auto s = ImVec2{}, p = ImVec2{}, GuiSize = ImVec2{ 653, 460 };
+		auto s = ImVec2{}, p = ImVec2{}, GuiSize = ImVec2{ 655, 460 };
 		std::string uname, build, build_at, sponsor;
 		uname = comp_name(); build = "DEV"; build_at = __DATE__; build_at += " "; build_at += __TIME__; sponsor = "modify. m1tZw";
 		bool hellllo = GetKeyState(VK_INSERT);
@@ -1423,6 +1423,7 @@ void c_menu::draw(bool is_open)
 		}
 		
 		ImGui::SetCursorPos(pad);
+		ImGui::Image(getAvatarTexture(4), ImVec2(128, 128),pad, ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
 		ImGui::BeginGroup(/*MAIN SPACE START*/);
 		{
 			{//tabs
@@ -1442,8 +1443,8 @@ void c_menu::draw(bool is_open)
 					if (ImGui::tab("M", "Misc", "Movement, Gameplay", tab == 5, tab_anim) && last_tab == tab && !preview_reverse) tab = 5; if (ImGui::IsItemHovered())tab_hovered = true;
 					ImGui::SetCursorPosY(345);
 					if (ImGui::tab("C", "Configs", "Save, Load, Share configs", tab == 6, tab_anim) && last_tab == tab && !preview_reverse) tab = 6; if (ImGui::IsItemHovered())tab_hovered = true;
-					ImGui::SetCursorPosY(390);
-					if (ImGui::tab("S", "Lua", "Cheat improvements by user", tab == 7, tab_anim) && last_tab == tab && !preview_reverse) tab = 7; if (ImGui::IsItemHovered())tab_hovered = true;
+					//ImGui::SetCursorPosY(390);
+					//if (ImGui::tab("S", "Lua", "Cheat improvements by user", tab == 7, tab_anim) && last_tab == tab && !preview_reverse) tab = 7; if (ImGui::IsItemHovered())tab_hovered = true;
 					ImGui::PopFont();
 				}
 				if (!vars.menu.block_BAR) {
