@@ -59,6 +59,7 @@ public:
 	LPDIRECT3DTEXTURE9 ct_a = nullptr;
 	LPDIRECT3DTEXTURE9 tt_a = nullptr;
 	LPDIRECT3DTEXTURE9 luv_u = nullptr;
+	LPDIRECT3DTEXTURE9 shigure = nullptr;
 	ImFont* name;
 	ImFont* isis;
 	ImFont* icon_font;

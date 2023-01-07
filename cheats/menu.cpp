@@ -1365,9 +1365,9 @@ void c_menu::waterwark()
 	ImGui::Begin("moe", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_::ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_::ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoNav);
 	{
 		ImGui::SetWindowSize(ImVec2(304, 460));
-		ImGui::SetWindowPos(ImVec2(menuPos.x - ImGui::GetWindowSize.x, menuPos.y + ImGui::GetWindowSize.y - 460));
+		ImGui::SetWindowPos(ImVec2(menuPos.x - ImGui::GetWindowSize().x, menuPos.y + ImGui::GetWindowSize().y - 460));
 		if (hooks::menu_open)
-			ImGui::Image(getAvatarTexture(5), ImGui::GetWindowSize, ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
+			ImGui::Image(getAvatarTexture(5), ImGui::GetWindowSize(), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
 	}
 	ImGui::End();
 	ImGui::PopStyleVar(2);
