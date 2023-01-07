@@ -8,7 +8,7 @@ const char Base64Alphabet[] =
 "abcdefghijklmnopqrstuvwxyz"
 "0123456789+/";
 
-class Base64 
+class Base64 //infect,i do not need it anymore
 {
 public:
 	static void encode(std::string &in, std::string *out) 

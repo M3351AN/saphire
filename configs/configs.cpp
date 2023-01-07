@@ -571,13 +571,13 @@ void C_ConfigManager::save(std::string config)
 
 	std::string data;
 
-	Base64 base64;
-	base64.encode(allJson.dump(), &data);
+	//Base64 base64;
+	//base64.encode(allJson.dump(), &data);
 
 	std::ofstream ofs;
 	ofs.open(file + '\0', std::ios::out | std::ios::trunc);
 
-	ofs << std::setw(4) << data << std::endl;
+	ofs << std::setw(4) << allJson.dump() << std::endl;
 	ofs.close();
 }
 
@@ -619,15 +619,15 @@ void C_ConfigManager::load(std::string config, bool load_script_items)
 	if (data.empty())
 		return;
 
-	Base64 base64;
+	//Base64 base64;
 
-	std::string decoded_data;
-	base64.decode(data, &decoded_data);
+	//std::string decoded_data;
+	//base64.decode(data, &decoded_data);
 
 	std::ofstream ofs;
 	ofs.open(file + '\0', std::ios::out | std::ios::trunc);
 
-	ofs << decoded_data;
+	ofs << data;
 	ofs.close();
 
 	json allJson;
@@ -638,12 +638,12 @@ void C_ConfigManager::load(std::string config, bool load_script_items)
 	ifs_final >> allJson;
 	ifs_final.close();
 
-	base64.encode(allJson.dump(), &data);
+	//base64.encode(allJson.dump(), &data);
 
 	std::ofstream final_ofs;
 	final_ofs.open(file + '\0', std::ios::out | std::ios::trunc);
 
-	final_ofs << data;
+	final_ofs << allJson.dump();
 	final_ofs.close();
 
 	for (auto it = allJson.begin(); it != allJson.end(); ++it)
