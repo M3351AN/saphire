@@ -1423,7 +1423,7 @@ void c_menu::draw(bool is_open)
 		}
 		
 		ImGui::SetCursorPos(pad);
-		ImGui::Image(getAvatarTexture(4), ImVec2(128, 128),pad, ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
+		ImGui::Image(getAvatarTexture(4), ImVec2(128, 128), ImVec2(p.x, p.y - 128), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
 		ImGui::BeginGroup(/*MAIN SPACE START*/);
 		{
 			{//tabs
@@ -1438,7 +1438,7 @@ void c_menu::draw(bool is_open)
 					ImGui::SetCursorPosY(200);
 					if (ImGui::tab("W", "Visuals", "Chams, ESP, World", tab == 3, tab_anim) && last_tab == tab && !preview_reverse) tab = 3; if (ImGui::IsItemHovered())tab_hovered = true;
 					ImGui::SetCursorPosY(245);
-					if (ImGui::tab("I", "Skins", "Skincahnger", tab == 4, tab_anim) && last_tab == tab && !preview_reverse) tab = 4; if (ImGui::IsItemHovered())tab_hovered = true;
+					if (ImGui::tab("I", "Skins", "Skinchanger", tab == 4, tab_anim) && last_tab == tab && !preview_reverse) tab = 4; if (ImGui::IsItemHovered())tab_hovered = true;
 					ImGui::SetCursorPosY(295);
 					if (ImGui::tab("M", "Misc", "Movement, Gameplay", tab == 5, tab_anim) && last_tab == tab && !preview_reverse) tab = 5; if (ImGui::IsItemHovered())tab_hovered = true;
 					ImGui::SetCursorPosY(345);
