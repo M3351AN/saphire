@@ -34,7 +34,7 @@ void spammers::clan_tag()
 		auto ticks = TIME_TO_TICKS(nci->GetAvgLatency(FLOW_OUTGOING)) + (float)m_globals()->m_tickcount; //-V807
 		auto intervals = 0.2f / m_globals()->m_intervalpertick;
 
-		auto main_time = (int)(ticks / intervals) % 28;
+		auto main_time = (int)(ticks / intervals) % 24;
 
 		if (main_time != time && !m_clientstate()->iChokedCommands)
 		{
@@ -43,88 +43,82 @@ void spammers::clan_tag()
 			switch (main_time)
 			{
 			case 0:
-				tag = crypt_str(""); //-V1037
+				tag = crypt_str(">"); //-V1037
 				break;
 			case 1:
-				tag = crypt_str("$");
+				tag = crypt_str(">_");
 				break;
 			case 2:
-				tag = crypt_str("s");
+				tag = crypt_str(">");
 				break;
 			case 3:
-				tag = crypt_str("s4");
+				tag = crypt_str(">_");
 				break;
 			case 4:
-				tag = crypt_str("sa");
+				tag = crypt_str(">s_");
 				break;
 			case 5:
-				tag = crypt_str("sap");
+				tag = crypt_str(">sa_");
 				break;
 			case 6:
-				tag = crypt_str("sap|-|");
+				tag = crypt_str(">sap_");
 				break;
 			case 7:
-				tag = crypt_str("saph");
+				tag = crypt_str(">saph_");
 				break;
 			case 8:
-				tag = crypt_str("saph1");
+				tag = crypt_str(">saphi_");
 				break;
 			case 9:
-				tag = crypt_str("saphi");
+				tag = crypt_str(">saphir_");
 				break;
 			case 10:
-				tag = crypt_str("saphi|2");
+				tag = crypt_str(">saphire_");
 				break;
 			case 11:
-				tag = crypt_str("saphir");
+				tag = crypt_str(">saphire_");
 				break;
 			case 12:
-				tag = crypt_str("saphir3");
+				tag = crypt_str(">saphire");
 				break;
 			case 13:
-				tag = crypt_str("saphire");
+				tag = crypt_str(">saphire_");
 				break;
 			case 14:
-				tag = crypt_str("saphire");
+				tag = crypt_str(">saphire");
 				break;
 			case 15:
-				tag = crypt_str("saphir3");
+				tag = crypt_str(">saphire_");
 				break;
 			case 16:
-				tag = crypt_str("saphir");
+				tag = crypt_str(">saphire");
 				break;
 			case 17:
-				tag = crypt_str("saphi|2");
+				tag = crypt_str(">saphir_");
 				break;
 			case 18:
-				tag = crypt_str("saphi");
+				tag = crypt_str(">saphi_");
 				break;
 			case 19:
-				tag = crypt_str("saph1");
+				tag = crypt_str(">saph_");
 				break;
 			case 20:
-				tag = crypt_str("saph");
+				tag = crypt_str(">sap_");
 				break;
 			case 21:
-				tag = crypt_str("sap|-|");
+				tag = crypt_str(">sa_");
 				break;
 			case 22:
-				tag = crypt_str("sap");
+				tag = crypt_str(">s_");
 				break;
 			case 23:
-				tag = crypt_str("sa");
+				tag = crypt_str(">_");
 				break;
 			case 24:
-				tag = crypt_str("s4");
+				tag = crypt_str(">");
 				break;
 			case 25:
-				tag = crypt_str("s");
-				break;
-			case 26:
-				tag = crypt_str("$");
-				break;
-			case 27:
-				tag = crypt_str("");
+				tag = crypt_str(">_");
 				break;
 			}
 
