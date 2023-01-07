@@ -1264,6 +1264,7 @@ const char* GetWeaponName(int id)
 }
 
 #define VERSION crypt_str(u8"saphire[Kai]")
+auto menuPos = ImVec2{ 0,0 };
 void c_menu::waterwark()
 {
 	if (!vars.menu.watermark)
@@ -1329,6 +1330,8 @@ void c_menu::waterwark()
 		seted = false;
 	if (seted)
 		ImGui::SetNextWindowPos(ImVec2(200, 200));
+
+	
 	ImGui::Begin("wwwwwwww", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_::ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_::ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoNav);
 	{
 
@@ -1360,8 +1363,17 @@ void c_menu::waterwark()
 	}
 	ImGui::End();
 	ImGui::PopStyleVar(2);
+	ImGui::Begin("moe", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_::ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_::ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_::ImGuiWindowFlags_NoNav);
+	{
+		ImGui::SetCursorPos(ImVec2(s.x - 15, 5));
+		if (hooks::menu_open)
+			ImGui::Image(getAvatarTexture(4), ImVec2(128, 128), ImVec2(menuPos.x, menuPos.y - 128), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
+	}
+	ImGui::End();
+	ImGui::PopStyleVar(2);
 }
 char* config_sel;
+
 void c_menu::draw(bool is_open)
 {
 		auto st = ImGui::GetStyle();
@@ -1396,6 +1408,7 @@ void c_menu::draw(bool is_open)
 		static bool drugs = false;
 		static float switch_alpha = 1.f;
 		static int next_id = -1;
+		menuPos = ImGui::GetWindowPos();
 		ImVec2 pad = ImGui::GetStyle().WindowPadding;
 		{//draw
 			s = ImVec2(ImGui::GetWindowSize().x - pad.x * 2, ImGui::GetWindowSize().y - pad.y * 2); p = ImVec2(ImGui::GetWindowPos().x + pad.x, ImGui::GetWindowPos().y + pad.y); auto draw = ImGui::GetWindowDrawList();
@@ -1423,7 +1436,6 @@ void c_menu::draw(bool is_open)
 		}
 		
 		ImGui::SetCursorPos(pad);
-		ImGui::Image(getAvatarTexture(4), ImVec2(128, 128), ImVec2(p.x, p.y - 128), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
 		ImGui::BeginGroup(/*MAIN SPACE START*/);
 		{
 			{//tabs
