@@ -346,6 +346,7 @@ struct Config
 			bool static_point_scale;
 			float head_scale;
 			float body_scale;
+			float limb_scale;
 			bool max_misses;
 			int max_misses_amount;
 			bool prefer_safe_points;

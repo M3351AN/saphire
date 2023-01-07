@@ -376,8 +376,8 @@ void add_config()
 		vars.new_config_name = crypt_str("config");
 
 	notify::add_log("Cheat", crypt_str("Added ") + vars.new_config_name + crypt_str(" config"), Color(vars.misc.menu_color));
-	if (vars.new_config_name.find(crypt_str(".cfg")) == std::string::npos)
-		vars.new_config_name += crypt_str(".cfg");
+	if (vars.new_config_name.find(crypt_str(".spr")) == std::string::npos)
+		vars.new_config_name += crypt_str(".spr");
 
 	cfg_manager->save(vars.new_config_name);
 	cfg_manager->config_files();
@@ -1569,6 +1569,7 @@ void c_menu::draw(bool is_open)
 								{
 									ImGui::SliderFloat(crypt_str("Head scale"), &vars.ragebot.weapon[hooks::rage_weapon].head_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].head_scale ? crypt_str("%.2f") : crypt_str("None"));
 									ImGui::SliderFloat(crypt_str("Body scale"), &vars.ragebot.weapon[hooks::rage_weapon].body_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].body_scale ? crypt_str("%.2f") : crypt_str("None"));
+									ImGui::SliderFloat(crypt_str("Limb scale"), &vars.ragebot.weapon[hooks::rage_weapon].limb_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].limb_scale ? crypt_str("%.2f") : crypt_str("None"));
 								}
 								ImGui::Checkbox(crypt_str("Prefer body aim"), &vars.ragebot.weapon[hooks::rage_weapon].prefer_body_aim);
 								ImGui::Checkbox(crypt_str("Prefer safe point"), &vars.ragebot.weapon[hooks::rage_weapon].prefer_safe_points);
@@ -1608,6 +1609,7 @@ void c_menu::draw(bool is_open)
 
 								if (vars.ragebot.damage_override_key.key > KEY_NONE && vars.ragebot.damage_override_key.key < KEY_MAX)
 									ImGui::SliderInt(crypt_str("Override damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_override_damage, 1, 120, true);
+								//if （hooks::rage_weapon == 6)waitformeforjmpssg
 							}
 							ImGui::EndMenuChild();
 

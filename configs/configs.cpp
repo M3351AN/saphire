@@ -87,6 +87,7 @@ void C_ConfigManager::setup()
 		setup_item(&vars.ragebot.weapon[i].static_point_scale, false, std::to_string(i) + crypt_str("Ragebot.static_point_scale"));
 		setup_item(&vars.ragebot.weapon[i].head_scale, 0.0f, std::to_string(i) + crypt_str("Ragebot.head_scale"));
 		setup_item(&vars.ragebot.weapon[i].body_scale, 0.0f, std::to_string(i) + crypt_str("Ragebot.body_scale"));
+		setup_item(&vars.ragebot.weapon[i].limb_scale, 0.0f, std::to_string(i) + crypt_str("Ragebot.limb_scale"));
 		setup_item(&vars.ragebot.weapon[i].max_misses, false, std::to_string(i) + crypt_str("Ragebot.max_misses"));
 		setup_item(&vars.ragebot.weapon[i].max_misses_amount, 0, std::to_string(i) + crypt_str("Ragebot.max_misses_amount"));
 		setup_item(&vars.ragebot.weapon[i].prefer_safe_points, false, std::to_string(i) + crypt_str("Ragebot.prefer_safe_points"));
@@ -814,7 +815,7 @@ void C_ConfigManager::config_files()
 	get_dir();
 	files.clear();
 
-	std::string path = folder + crypt_str("/*.cfg");
+	std::string path = folder + crypt_str("/*.spr");
 	WIN32_FIND_DATA fd;
 
 	HANDLE hFind = FindFirstFile(path.c_str(), &fd);
