@@ -9,6 +9,8 @@
 
 void fakelag::Fakelag(CUserCmd* m_pcmd)
 {
+	if (csgo.globals.should_disable_packet)
+		return;
 	if (vars.antiaim.fakelag && !csgo.globals.exploits)
 	{
 		static auto force_choke = false;

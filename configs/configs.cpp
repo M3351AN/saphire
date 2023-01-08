@@ -64,7 +64,7 @@ void C_ConfigManager::setup()
 	setup_item(&vars.ragebot.autoshoot, false, crypt_str("Ragebot.autoshoot"));
 	setup_item(&vars.ragebot.double_tap, false, crypt_str("Ragebot.double_tap"));
 	setup_item(&vars.ragebot.dt_teleport, false, crypt_str("Ragebot.dt_teleport"));
-	setup_item(&vars.ragebot.slow_teleport, false, crypt_str("Ragebot.slow_teleport"));
+	//setup_item(&vars.ragebot.slow_teleport, false, crypt_str("Ragebot.slow_teleport"));
 	setup_item(&vars.ragebot.fl0_onshot, false, crypt_str("Ragebot.fl0_onshot"));
 	setup_item(&vars.ragebot.double_tap_key, key_bind(TOGGLE), crypt_str("Ragebot.double_tap_key"));
 	setup_item(&vars.ragebot.autoscope, false, crypt_str("Ragebot.autoscope"));

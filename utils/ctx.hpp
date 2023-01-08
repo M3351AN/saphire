@@ -65,7 +65,6 @@ class ctx_t  //-V730
 public:
 	struct Globals  //-V730
 	{			
-		int shot_tick = 0;
 		bool loaded_script = false;
 		bool focused_on_input = false;
 		bool double_tap_fire = false;
@@ -100,6 +99,7 @@ public:
 		bool should_update_radar = false;
 		bool updating_skins = false;
 		bool should_update_weather = false;
+		bool should_disable_packet = false;
 
 		int shift_time = 0;
 		int framerate = 0;
