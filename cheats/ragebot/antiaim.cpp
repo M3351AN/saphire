@@ -147,14 +147,13 @@ float antiaim::get_yaw(CUserCmd* m_pcmd)
 	}
 	else
 	{
+		auto base_angle = m_pcmd->m_viewangles.y + 180.0f;
 		if ((csgo.globals.last_aimbot_shot + 15 > m_globals()->m_tickcount) && vars.ragebot.fl0_onshot && !csgo.globals.exploits)
-			return yaw;
+			return base_angle;
 		if (manual_side == SIDE_NONE)
 			freestanding(m_pcmd);
 		else
 			final_manual_side = manual_side;
-
-		auto base_angle = m_pcmd->m_viewangles.y + 180.0f;
 
 		if (final_manual_side == SIDE_LEFT)
 			base_angle -= 90.0f;
