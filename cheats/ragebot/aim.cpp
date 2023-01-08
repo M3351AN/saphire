@@ -748,7 +748,7 @@ void aim::fire(CUserCmd* cmd)
 	if (!vars.ragebot.autoshoot && !(cmd->m_buttons & IN_ATTACK))
 		return;
 	auto hitchance_amount = 0;
-	if (misc::get().double_tap_key && vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance)
+	if ((vars.ragebot.double_tap && misc::get().double_tap_key || misc::get().double_tap_checkc ) && vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance)
 		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance_amount;
 	else if (vars.ragebot.weapon[csgo.globals.current_weapon].air_shot && !(csgo.local()->m_fFlags() & FL_ONGROUND))
 		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].air_hitchance_amount;
