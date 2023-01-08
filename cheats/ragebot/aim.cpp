@@ -887,7 +887,15 @@ bool aim::hitchance(Vector angles, player_t* ent, float chance)
 	if (!weapon)
 		return false;
 
-	float flChance = vars.ragebot.weapon[csgo.globals.current_weapon].hitchance ? vars.ragebot.weapon[csgo.globals.current_weapon].hitchance_amount : 0;
+	float flChance = 0.0f;
+	if (!(vars.ragebot.weapon[csgo.globals.current_weapon].hitchance))
+		flChance = 0.0f;
+	else if ((key_binds::get().get_key_bind_state(2)) && vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance)
+		flChance = vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance_amount;
+	else if (vars.ragebot.weapon[csgo.globals.current_weapon].air_shot && !(csgo.local()->m_fFlags() & FL_ONGROUND))
+		flChance = vars.ragebot.weapon[csgo.globals.current_weapon].air_hitchance_amount;
+	else
+		flChance = vars.ragebot.weapon[csgo.globals.current_weapon].hitchance_amount;
 
 	Vector fw, rw, uw;
 	math::aim::AngleVectors(angles, fw, rw, uw);
