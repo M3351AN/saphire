@@ -692,6 +692,7 @@ struct Config
 		bool anti_untrusted;
 		bool unlock_hiddencvars;
 		Color menu_color;
+		bool IQ_boost;
 	} misc;
 
 	struct Skins_t 

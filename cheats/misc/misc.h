@@ -13,6 +13,7 @@ public:
 	void FullBright();
 	void PovArrows(player_t* e, Color color);
 	void NightmodeFix();
+	void ping_spike();
 	void zeus_range();
 	void desync_arrows();
 	void aimbot_hitboxes();
@@ -31,4 +32,9 @@ public:
 
 	bool hide_shots_enabled = false;
 	bool hide_shots_key = false;
+	struct incomingSequence {
+		int inreliablestate;
+		int sequencenr;
+		float servertime;
+	};
 };

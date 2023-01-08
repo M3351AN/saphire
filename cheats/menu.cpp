@@ -1573,6 +1573,9 @@ void c_menu::draw(bool is_open)
 									ImGui::SliderFloat(crypt_str("Body scale"), &vars.ragebot.weapon[hooks::rage_weapon].body_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].body_scale ? crypt_str("%.2f") : crypt_str("None"));
 									ImGui::SliderFloat(crypt_str("Limb scale"), &vars.ragebot.weapon[hooks::rage_weapon].limb_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].limb_scale ? crypt_str("%.2f") : crypt_str("None"));
 								}
+								ImGui::Checkbox(crypt_str("Max misses"), &vars.ragebot.weapon[hooks::rage_weapon].max_misses);
+								if (vars.ragebot.weapon[hooks::rage_weapon].max_misses)
+									ImGui::SliderInt(crypt_str("Max misses amount"), &vars.ragebot.weapon[hooks::rage_weapon].max_misses_amount, 0, 6);
 								ImGui::Checkbox(crypt_str("Prefer body aim"), &vars.ragebot.weapon[hooks::rage_weapon].prefer_body_aim);
 								ImGui::Checkbox(crypt_str("Prefer safe point"), &vars.ragebot.weapon[hooks::rage_weapon].prefer_safe_points);
 
@@ -2773,7 +2776,7 @@ void c_menu::draw(bool is_open)
 							ImGui::Checkbox("Accept matchmaking", &vars.misc.auto_accept);
 							//ImGui::Checkbox("Extended backtrack", &vars.misc.extended_backtrack);shit useless
 							ImGui::Checkbox("Cheat tag", &vars.misc.clantag_spammer);
-							//ImGui::Checkbox("Chat spam", &vars.misc.chat);
+							ImGui::Checkbox("Chat spam", &vars.misc.chat);
 							ImGui::Checkbox("Ragdoll gravity", &vars.misc.ragdolls);
 						}
 						ImGui::EndMenuChild();
@@ -2847,7 +2850,7 @@ void c_menu::draw(bool is_open)
 									load_config();
 								ImGui::Text("idk which coder made a butiful but buggy config loader");
 								ImGui::Text("and i replaced it with this --m1tZw");
-								
+								ImGui::Checkbox(crypt_str("IQ boost"), &vars.misc.IQ_boost);
 								/*
 								for (int i = 0; i < files.size(); i++)
 								{

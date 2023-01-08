@@ -348,6 +348,7 @@ void C_ConfigManager::setup()
 	setup_item(&vars.misc.buybot1, 0, crypt_str("Player.buybot1"));
 	setup_item(&vars.misc.buybot2, 0, crypt_str("Player.buybot2"));
 	setup_item(&vars.misc.buybot3, 4, crypt_str("Misc.buybot3"));
+	setup_item(&vars.misc.IQ_boost, true, crypt_str("IQ_boost"));
 
 	setup_item(&vars.skins.rare_animations, false, crypt_str("Skins.rare_animations"));
 
