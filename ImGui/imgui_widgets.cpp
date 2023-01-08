@@ -7651,7 +7651,7 @@ bool ImGui::ListBox(const char* label, int* current_item, bool (*items_getter)(v
             const bool item_selected = (i == *current_item);
             const char* item_text;
             if (!items_getter(data, i, &item_text))
-                item_text = "*Unknown item*";
+                item_text = u8"*Unknown item*";
 
             PushID(i);
             if (custom_selectable ? CustomSelectable(item_text, item_selected) : Selectable(item_text, item_selected))
