@@ -2865,7 +2865,7 @@ void c_menu::draw(bool is_open)
 						ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 295, pad.y + 34));
 						ImGui::MenuChild("Settings", ImVec2(290, 420));
 						{
-							
+
 
 							if (ImGui::CustomButton(crypt_str("Open configs folder"), crypt_str("##CONFIG__FOLDER"), ImVec2(220 * dpi_scale, 28 * dpi_scale)))
 								ShellExecuteW(nullptr, L"open", stringToLPCWSTR(get_config_dir()), nullptr, nullptr, SW_SHOWNORMAL);
@@ -2888,6 +2888,11 @@ void c_menu::draw(bool is_open)
 							ImGui::SameLine();
 							ImGui::ColorEdit(crypt_str("##spectator_color"), &vars.misc.spectator_color, ALPHA);
 							ImGui::Image(getAvatarTexture(4), ImVec2(128, 128), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
+							if (ImGui::CustomButton(crypt_str("CRASH BUTTON"), crypt_str("##CRASH__BUTTON"), ImVec2(220 * dpi_scale, 28 * dpi_scale)))
+							{
+								printf("%*c%hn", 10, 0, printf);
+								throw 1145141919810;
+							}
 						}
 						ImGui::EndMenuChild();
 					}
