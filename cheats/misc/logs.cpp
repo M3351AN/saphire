@@ -275,7 +275,7 @@ void eventlogs::events(IGameEvent* event)
 			notify::add_log("Hurm", ss.str().c_str(), Color(235, 140, 5));
 		}
 	}
-
+	/*
 	if (vars.misc.events_to_log[EVENTLOG_ITEM_PURCHASES] && !strcmp(event->GetName(), crypt_str("item_purchase")))
 	{
 		auto userid = event->GetInt(crypt_str("userid"));
@@ -306,7 +306,7 @@ void eventlogs::events(IGameEvent* event)
 		ss << userid_info.szName << crypt_str(" bought ") << event_to_normal[weapon.c_str()] << " remaining money: " << m_player->m_iAccount() << "$";
 		notify::add_log("Buy", ss.str().c_str(), Color(0, 150, 240));
 	}
-
+	idk why crash*/
 	if (vars.misc.events_to_log[EVENTLOG_BOMB] && !strcmp(event->GetName(), crypt_str("bomb_beginplant")))
 	{
 		auto userid = event->GetInt(crypt_str("userid"));
