@@ -150,7 +150,7 @@ namespace hooks
 		c_menu::get().weapon_icons = io.Fonts->AddFontFromMemoryTTF((void*)weapons_font, sizeof(weapons_font), 18, &font_config, io.Fonts->GetGlyphRangesDefault());
 		c_menu::get().weapon_icons2 = io.Fonts->AddFontFromMemoryTTF((void*)weapons_font, sizeof(weapons_font), 20, &font_config, io.Fonts->GetGlyphRangesDefault());
 		c_menu::get().font = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc", 13.0f, NULL, ranges);
-		c_menu::get().interfaces = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc", 15.f * 1.25, &font_config, ranges);
+		c_menu::get().interfaces = io.Fonts->AddFontFromMemoryTTF((void*)interfaces, sizeof(interfaces) ,15.f * 1.25, &font_config, ranges);
 		c_menu::get().timersz = io.Fonts->AddFontFromMemoryTTF((void*)timers, sizeof(timers), 20, &font_config, ranges);
 		
 		if (c_menu::get().tt_a == nullptr) {

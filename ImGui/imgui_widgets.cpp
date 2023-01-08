@@ -1301,7 +1301,7 @@ bool ImGui::PlusButton(const char* label, bool type, const ImVec2& size_arg, con
     if (!config)
         PushFont(c_menu::get().interfaces);
     if (!config)
-        window->DrawList->AddText(ImVec2(bb.Min.x + (size_arg.x / 2) - (CalcTextSize(!type ? "S" : "Col").x / 2) + 1, bb.Min.y + (size_arg.y / 2) - (CalcTextSize(!type ? "S" : "Col").y / 2)), ImColor(colr), !type ? "S" : "Col");
+        window->DrawList->AddText(ImVec2(bb.Min.x + (size_arg.x / 2) - (CalcTextSize(!type ? "S" : "C").x / 2) + 1, bb.Min.y + (size_arg.y / 2) - (CalcTextSize(!type ? "S" : "C").y / 2)), ImColor(colr), !type ? "S" : "C");
     else
         window->DrawList->AddText(ImVec2(bb.Min.x + (size_arg.x / 2) - (CalcTextSize(label).x / 2), bb.Min.y + (size_arg.y / 2) - (CalcTextSize(label).y / 2)), ImColor(colr), label);
     if (!config)
@@ -7651,7 +7651,7 @@ bool ImGui::ListBox(const char* label, int* current_item, bool (*items_getter)(v
             const bool item_selected = (i == *current_item);
             const char* item_text;
             if (!items_getter(data, i, &item_text))
-                item_text = "*Unknown item*";
+                item_text = u8"*Unknown item*";
 
             PushID(i);
             if (custom_selectable ? CustomSelectable(item_text, item_selected) : Selectable(item_text, item_selected))
