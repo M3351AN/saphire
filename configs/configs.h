@@ -337,8 +337,8 @@ struct Config
 			int double_tap_hitchance_amount;
 			bool hitchance;
 			int hitchance_amount;
-			bool accuracy_boost;
-			int accuracy_boost_amount;
+			//bool accuracy_boost;
+			float accuracy_boost_amount;
 			int minimum_visible_damage;
 			int minimum_damage;
 			int minimum_override_damage;

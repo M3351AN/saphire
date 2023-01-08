@@ -1601,15 +1601,13 @@ void c_menu::draw(bool is_open)
 								if (vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance)
 									ImGui::SliderInt(crypt_str("DT hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance_amount, 1, 100);
 
-
-								ImGui::Checkbox(crypt_str("Accuracy boost"), &vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost);
-
-								if (vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost)
-									ImGui::SliderInt(crypt_str("Accuracy boost amount"), &vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost_amount, 1, 100);
-
 								ImGui::SliderInt(crypt_str("Visible damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_visible_damage, 1, 120, true);
 								if (vars.ragebot.autowall)
 									ImGui::SliderInt(crypt_str("Non Visible damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_damage, 1, 120, true);
+
+								//ImGui::Checkbox(crypt_str("Accuracy boost"), &vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost);
+								//if (vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost)
+								ImGui::SliderFloat(crypt_str("Accuracy boost"), &vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost_amount, 0.0f, 2.0f);
 								ImGui::SetCursorPosX(8); ImGui::Text("Damage override");
 								draw_keybind(crypt_str("Damage override"), &vars.ragebot.damage_override_key, crypt_str("##HOTKEY__DAMAGE_OVERRIDE"));
 								
@@ -2768,11 +2766,14 @@ void c_menu::draw(bool is_open)
 						{
 							ImGui::Checkbox(crypt_str("Preserve killfeed"), &vars.esp.preserve_killfeed);
 							ImGui::Checkbox("Unlock hidden cvars", &vars.misc.unlock_hiddencvars);
+							ImGui::Checkbox("Anti untrusted", &vars.misc.anti_untrusted);
+							//ImGui::Checkbox("Anti screenshot", &vars.misc.anti_screenshot);
 							ImGui::Checkbox("Block server advertsments", &vars.misc.block_adv);
 							ImGui::Checkbox("Unlock inventory access", &vars.misc.inventory_access);
 							ImGui::Checkbox("Accept matchmaking", &vars.misc.auto_accept);
-							ImGui::Checkbox("Extended backtrack", &vars.misc.extended_backtrack);
+							//ImGui::Checkbox("Extended backtrack", &vars.misc.extended_backtrack);shit useless
 							ImGui::Checkbox("Cheat tag", &vars.misc.clantag_spammer);
+							//ImGui::Checkbox("Chat spam", &vars.misc.chat);
 							ImGui::Checkbox("Ragdoll gravity", &vars.misc.ragdolls);
 						}
 						ImGui::EndMenuChild();

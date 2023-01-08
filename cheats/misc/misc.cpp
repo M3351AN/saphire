@@ -17,7 +17,7 @@ void misc::watermark()
 	if (!vars.menu.watermark)
 		return;
 
-	auto width = 0, height = 0;
+	/*auto width = 0, height = 0;
 	m_engine()->GetScreenSize(width, height); //-V807
 
 	auto watermark = VERSION + csgo.username + crypt_str(" | ") + csgo.globals.time;
@@ -38,7 +38,7 @@ void misc::watermark()
 			auto tickrate = std::to_string((int)(1.0f / m_globals()->m_intervalpertick));
 			watermark = VERSION + csgo.username + crypt_str(" | ") + server + crypt_str(" | ") + std::to_string(csgo.globals.ping) + crypt_str(" ms | ") + tickrate + crypt_str(" tick | ") + csgo.globals.time;
 		}
-	}
+	}*/
 
 	//auto box_width = render::get().text_width(fonts[NAME], watermark.c_str()) + 10;
 
@@ -64,7 +64,7 @@ void misc::ChatSpamer()
 {
 	if (!vars.misc.chat)
 		return;
-
+	
 	static std::string chatspam[] = 
 	{ 
 		crypt_str("AimWhere - stay with us or lose the game."),
@@ -75,9 +75,9 @@ void misc::ChatSpamer()
 
 	static auto lastspammed = 0;
 
-	if (GetTickCount() - lastspammed > 800)
+	if (m_globals()->m_tickcount - lastspammed > 800)
 	{
-		lastspammed = GetTickCount();
+		lastspammed = m_globals()->m_tickcount;
 
 		srand(m_globals()->m_tickcount);
 		std::string msg = crypt_str("say ") + chatspam[rand() % 4];

@@ -440,8 +440,8 @@ void aim::scan(adjust_data* record, scan_data& data, const Vector& shoot_positio
 		{
 			body_hitboxes = false;
 
-			if (vars.player_list.force_body_aim[record->i])
-				break;
+			//if (vars.player_list.force_body_aim[record->i])
+				//break;
 
 			if (key_binds::get().get_key_bind_state(22))
 				break;
@@ -486,7 +486,7 @@ void aim::scan(adjust_data* record, scan_data& data, const Vector& shoot_positio
 			if (!optimized && force_safe_points && !point.safe)
 				continue;
 
-			best_damage = fire_data.damage;
+			best_damage = fire_data.damage * vars.ragebot.weapon[csgo.globals.current_weapon].accuracy_boost_amount;
 
 			data.point = point;
 			data.visible = fire_data.visible;
@@ -747,8 +747,8 @@ void aim::fire(CUserCmd* cmd)
 
 	if (!vars.ragebot.autoshoot && !(cmd->m_buttons & IN_ATTACK))
 		return;
-	auto hitchance_amount = 0;
-	if (misc::get().double_tap_key && vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance)
+	auto hitchance_amount = 1;
+	if ((key_binds::get().get_key_bind_state(2)) && vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance)
 		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance_amount;
 	else if (vars.ragebot.weapon[csgo.globals.current_weapon].air_shot && !(csgo.local()->m_fFlags() & FL_ONGROUND))
 		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].air_hitchance_amount;
