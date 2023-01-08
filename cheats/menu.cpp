@@ -197,7 +197,7 @@ void c_menu::menu_setup(ImGuiStyle& style) //-V688
 	ImGui::SetNextWindowBgAlpha(min(style.Alpha, 0.94f)); // window bg alpha setup
 
 	styles.WindowPadding = style.WindowPadding;
-	styles.WindowRounding = style.WindowRounding;
+	styles.WindowRounding = style.WindowRounding + 5.0f;
 	styles.WindowMinSize = style.WindowMinSize;
 	styles.ChildRounding = style.ChildRounding;
 	styles.PopupRounding = style.PopupRounding;
@@ -222,6 +222,8 @@ void c_menu::menu_setup(ImGuiStyle& style) //-V688
 	for (auto i = 0; i < vars.skins.skinChanger.size(); i++)
 		if (!all_skins[i])
 			all_skins[i] = get_skin_preview(get_wep(i, (i == 0 || i == 1) ? vars.skins.skinChanger.at(i).definition_override_vector_index : -1, i == 0).c_str(), vars.skins.skinChanger.at(i).skin_name, device); //-V810
+
+
 
 	menu_setupped = true; // we dont want to setup menu again
 }
@@ -1263,7 +1265,7 @@ const char* GetWeaponName(int id)
 	}
 }
 
-#define VERSION crypt_str(u8"saphire[Kai]")
+#define VERSION crypt_str("saphire[改]")
 auto menuPos = ImVec2{ 0,0 };
 static int tab_anim = 42;
 void c_menu::waterwark()
@@ -1421,7 +1423,7 @@ void c_menu::draw(bool is_open)
 			}
 			ImGui::GetForegroundDrawList()->AddRectFilled(ImVec2(p.x, p.y), ImVec2(p.x + tab_anim, p.y + s.y - 20), ImColor(39, 39, 39, int(public_alpha * 255)));
 			ImGui::PushFont(font);
-			draw->AddText(ImVec2(p.x + 5, p.y + s.y - 20 + (10 - ImGui::CalcTextSize(std::string(u8"saphire[Kai] " + build + " | build at: " + build_at + " | " + sponsor).c_str()).y / 2)), ImColor(220, 220, 220, int(public_alpha * 255)), std::string(u8"saphire[Kai] " + build + " | build at: " + build_at + " | " + sponsor).c_str());
+			draw->AddText(ImVec2(p.x + 5, p.y + s.y - 20 + (10 - ImGui::CalcTextSize(std::string(u8"saphire[改] " + build + " | build at: " + build_at + " | " + sponsor).c_str()).y / 2)), ImColor(220, 220, 220, int(public_alpha * 255)), std::string(u8"saphire[改] " + build + " | build at: " + build_at + " | " + sponsor).c_str());
 			draw->AddText(ImVec2(p.x + s.x - 5 - ImGui::CalcTextSize(std::string("Welcome back, " + uname).c_str()).x, p.y + s.y - 20 + (10 - ImGui::CalcTextSize(std::string("Welcome back, " + uname).c_str()).y / 2)), ImColor(220, 220, 220, int(public_alpha * 255)), std::string("Welcome back, " + uname).c_str());
 			ImGui::PopFont();
 			{
@@ -1431,7 +1433,7 @@ void c_menu::draw(bool is_open)
 				else if (tab_anim < 220 && ss > 0.f)
 					ss -= 0.04f;
 				ImGui::PushFont(name);
-				ImGui::GetForegroundDrawList()->AddText(ImVec2(p.x + tab_anim / 2 - ImGui::CalcTextSize("saphire[Kai]").x / 2, p.y + 20 - ImGui::CalcTextSize("saphire[Kai]").y / 2), ImColor(vars.misc.menu_color.r() / 255.f, vars.misc.menu_color.g() / 255.f, vars.misc.menu_color.b() / 255.f, ImClamp(ss * 2.f, 0.f, 1.f)), "saphire[Kai]");
+				ImGui::GetForegroundDrawList()->AddText(ImVec2(p.x + tab_anim / 2 - ImGui::CalcTextSize("saphire[改]").x / 2, p.y + 20 - ImGui::CalcTextSize("saphire[改]").y / 2), ImColor(vars.misc.menu_color.r() / 255.f, vars.misc.menu_color.g() / 255.f, vars.misc.menu_color.b() / 255.f, ImClamp(ss * 2.f, 0.f, 1.f)), "saphire[改]");
 				ImGui::PopFont();
 			}
 		}

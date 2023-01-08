@@ -355,8 +355,8 @@ void worldesp::molotov_timer(entity_t* entity, int id)
 	if (!hull_points.empty())
 		g_Render->PolyLine(hull_points.data(), hull_points.size(), Color(col.r(), col.g(), col.b(), 255), true, 2.f, Color(col.r(), col.g(), col.b(), 35));
 	else {
-		auto ûsize = Vector(maxs - mins).Length2D() * 0.5;
-        g_Render->DrawRing3D(dpos.x, dpos.y, dpos.z, ûsize, 360, Color(col.r(), col.g(), col.b(), 255), Color(col.r(), col.g(), col.b(), 35), 2, factor);
+		auto uisize = Vector(maxs - mins).Length2D() * 0.5;
+        g_Render->DrawRing3D(dpos.x, dpos.y, dpos.z, uisize, 360, Color(col.r(), col.g(), col.b(), 255), Color(col.r(), col.g(), col.b(), 35), 2, factor);
 	}
 
 

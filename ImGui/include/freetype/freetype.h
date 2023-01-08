@@ -1184,7 +1184,7 @@ FT_BEGIN_HEADER
    *   FT_FACE_FLAG_TRICKY ::
    *     The face is 'tricky', this is, it always needs the font format's
    *     native hinting engine to get a reasonable result.  A typical example
-   *     is the old Chinese font `mingli.ttf` (but not `mingliu.ttc`) that
+   *     is the old Chinese font `mingli.ttf` (but not `mingliu.ttf`) that
    *     uses TrueType bytecode instructions to move and scale all of its
    *     subglyphs.
    *
