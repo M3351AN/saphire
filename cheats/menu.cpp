@@ -2767,13 +2767,13 @@ void c_menu::draw(bool is_open)
 							ImGui::Checkbox(crypt_str("Preserve killfeed"), &vars.esp.preserve_killfeed);
 							ImGui::Checkbox("Unlock hidden cvars", &vars.misc.unlock_hiddencvars);
 							ImGui::Checkbox("Anti untrusted", &vars.misc.anti_untrusted);
-							ImGui::Checkbox("Anti screenshot", &vars.misc.anti_screenshot);
+							//ImGui::Checkbox("Anti screenshot", &vars.misc.anti_screenshot);
 							ImGui::Checkbox("Block server advertsments", &vars.misc.block_adv);
 							ImGui::Checkbox("Unlock inventory access", &vars.misc.inventory_access);
 							ImGui::Checkbox("Accept matchmaking", &vars.misc.auto_accept);
 							//ImGui::Checkbox("Extended backtrack", &vars.misc.extended_backtrack);shit useless
 							ImGui::Checkbox("Cheat tag", &vars.misc.clantag_spammer);
-							ImGui::Checkbox("Chat spam", &vars.misc.chat);
+							//ImGui::Checkbox("Chat spam", &vars.misc.chat);
 							ImGui::Checkbox("Ragdoll gravity", &vars.misc.ragdolls);
 						}
 						ImGui::EndMenuChild();
