@@ -75,9 +75,9 @@ void misc::ChatSpamer()
 
 	static auto lastspammed = 0;
 
-	if (GetTickCount() - lastspammed > 800)
+	if (m_globals()->m_tickcount - lastspammed > 800)
 	{
-		lastspammed = GetTickCount();
+		lastspammed = m_globals()->m_tickcount;
 
 		srand(m_globals()->m_tickcount);
 		std::string msg = crypt_str("say ") + chatspam[rand() % 4];

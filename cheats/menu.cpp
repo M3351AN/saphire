@@ -1605,7 +1605,7 @@ void c_menu::draw(bool is_open)
 								//ImGui::Checkbox(crypt_str("Accuracy boost"), &vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost);
 
 								//if (vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost)
-								ImGui::SliderFloat(crypt_str("Accuracy boost time"), &vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost_amount, 0.0f,1.0f );
+								ImGui::SliderFloat(crypt_str("Accuracy boost"), &vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost_amount, 0.0f,2.0f );
 
 								ImGui::SliderInt(crypt_str("Visible damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_visible_damage, 1, 120, true);
 								if (vars.ragebot.autowall)
