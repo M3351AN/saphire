@@ -197,7 +197,7 @@ void c_menu::menu_setup(ImGuiStyle& style) //-V688
 	ImGui::SetNextWindowBgAlpha(min(style.Alpha, 0.94f)); // window bg alpha setup
 
 	styles.WindowPadding = style.WindowPadding;
-	styles.WindowRounding = style.WindowRounding + 5.0f;
+	styles.WindowRounding = style.WindowRounding;
 	styles.WindowMinSize = style.WindowMinSize;
 	styles.ChildRounding = style.ChildRounding;
 	styles.PopupRounding = style.PopupRounding;
