@@ -9,6 +9,8 @@
 
 void fakelag::Fakelag(CUserCmd* m_pcmd)
 {
+	if ((csgo.globals.last_aimbot_shot + 15 > m_globals()->m_tickcount) && vars.ragebot.fl0_onshot && !csgo.globals.exploits)
+		return;
 	if (vars.antiaim.fakelag && !csgo.globals.exploits)
 	{
 		static auto force_choke = false;
@@ -74,8 +76,15 @@ void fakelag::Fakelag(CUserCmd* m_pcmd)
 	if (m_gamerules()->m_bIsValveDS()) //-V807
 		max_choke = m_engine()->IsVoiceRecording() ? 1 : min(max_choke, 6);
 
-	if (misc::get().recharging_double_tap)
-		max_choke = csgo.globals.weapon->get_max_tickbase_shift();
+	if (misc::get().recharging_double_tap) {
+		if (vars.ragebot.dt_teleport) {
+			max_choke = csgo.globals.weapon->get_max_tickbase_shift();
+		}
+		else {
+			max_choke = 0;
+		}
+	}
+
 
 	if (key_binds::get().get_key_bind_state(22))
 		max_choke = 1;

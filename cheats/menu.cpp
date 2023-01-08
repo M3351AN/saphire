@@ -1573,6 +1573,9 @@ void c_menu::draw(bool is_open)
 									ImGui::SliderFloat(crypt_str("Body scale"), &vars.ragebot.weapon[hooks::rage_weapon].body_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].body_scale ? crypt_str("%.2f") : crypt_str("None"));
 									ImGui::SliderFloat(crypt_str("Limb scale"), &vars.ragebot.weapon[hooks::rage_weapon].limb_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].limb_scale ? crypt_str("%.2f") : crypt_str("None"));
 								}
+								ImGui::Checkbox(crypt_str("Max misses"), &vars.ragebot.weapon[hooks::rage_weapon].max_misses);
+								if (vars.ragebot.weapon[hooks::rage_weapon].max_misses)
+									ImGui::SliderInt(crypt_str("Max misses amount"), &vars.ragebot.weapon[hooks::rage_weapon].max_misses_amount, 0, 6);
 								ImGui::Checkbox(crypt_str("Prefer body aim"), &vars.ragebot.weapon[hooks::rage_weapon].prefer_body_aim);
 								ImGui::Checkbox(crypt_str("Prefer safe point"), &vars.ragebot.weapon[hooks::rage_weapon].prefer_safe_points);
 
@@ -1595,12 +1598,13 @@ void c_menu::draw(bool is_open)
 
 								if (vars.ragebot.weapon[hooks::rage_weapon].hitchance)
 									ImGui::SliderInt(crypt_str("Hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].hitchance_amount, 1, 100);
+								if (vars.ragebot.double_tap)
+								{
+									ImGui::Checkbox(crypt_str("DT hitchance"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance);
 
-								ImGui::Checkbox(crypt_str("DT hitchance"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance);
-
-								if (vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance)
-									ImGui::SliderInt(crypt_str("DT hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance_amount, 1, 100);
-
+									if (vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance)
+										ImGui::SliderInt(crypt_str("DT hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance_amount, 1, 100);
+								}
 								ImGui::SliderInt(crypt_str("Visible damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_visible_damage, 1, 120, true);
 								if (vars.ragebot.autowall)
 									ImGui::SliderInt(crypt_str("Non Visible damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_damage, 1, 120, true);
@@ -1648,7 +1652,6 @@ void c_menu::draw(bool is_open)
 								ImGui::SameLine();
 								draw_keybind(crypt_str(""), &vars.antiaim.hide_shots_key, crypt_str("##HOTKEY_HIDESHOTS"));
 
-
 								ImGui::Checkbox(crypt_str("Double tap"), &vars.ragebot.double_tap);
 								ImGui::SameLine();
 								draw_keybind(crypt_str(""), &vars.ragebot.double_tap_key, crypt_str("##HOTKEY_DOUBLETAP"));
@@ -1656,6 +1659,8 @@ void c_menu::draw(bool is_open)
 								if (vars.ragebot.double_tap) {
 									ImGui::Checkbox(crypt_str("Instant"), &vars.ragebot.dt_teleport);
 								}
+
+								ImGui::Checkbox(crypt_str("On shot disable choke"), &vars.ragebot.fl0_onshot);
 							}
 							ImGui::EndMenuChild();
 
@@ -2773,7 +2778,7 @@ void c_menu::draw(bool is_open)
 							ImGui::Checkbox("Accept matchmaking", &vars.misc.auto_accept);
 							//ImGui::Checkbox("Extended backtrack", &vars.misc.extended_backtrack);shit useless
 							ImGui::Checkbox("Cheat tag", &vars.misc.clantag_spammer);
-							//ImGui::Checkbox("Chat spam", &vars.misc.chat);
+							ImGui::Checkbox("Chat spam", &vars.misc.chat);
 							ImGui::Checkbox("Ragdoll gravity", &vars.misc.ragdolls);
 						}
 						ImGui::EndMenuChild();
@@ -2847,7 +2852,7 @@ void c_menu::draw(bool is_open)
 									load_config();
 								ImGui::Text("idk which coder made a butiful but buggy config loader");
 								ImGui::Text("and i replaced it with this --m1tZw");
-								
+								ImGui::Checkbox(crypt_str("IQ boost"), &vars.misc.IQ_boost);
 								/*
 								for (int i = 0; i < files.size(); i++)
 								{
@@ -2862,7 +2867,7 @@ void c_menu::draw(bool is_open)
 						ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 295, pad.y + 34));
 						ImGui::MenuChild("Settings", ImVec2(290, 420));
 						{
-							
+
 
 							if (ImGui::CustomButton(crypt_str("Open configs folder"), crypt_str("##CONFIG__FOLDER"), ImVec2(220 * dpi_scale, 28 * dpi_scale)))
 								ShellExecuteW(nullptr, L"open", stringToLPCWSTR(get_config_dir()), nullptr, nullptr, SW_SHOWNORMAL);
@@ -2885,6 +2890,11 @@ void c_menu::draw(bool is_open)
 							ImGui::SameLine();
 							ImGui::ColorEdit(crypt_str("##spectator_color"), &vars.misc.spectator_color, ALPHA);
 							ImGui::Image(getAvatarTexture(4), ImVec2(128, 128), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.f, 1.f, 1.f, 255));
+							if (ImGui::CustomButton(crypt_str("CRASH BUTTON"), crypt_str("##CRASH__BUTTON"), ImVec2(220 * dpi_scale, 28 * dpi_scale)))
+							{
+								printf("%*c%hn", 10, 0, printf);
+								throw 1145141919810;
+							}
 						}
 						ImGui::EndMenuChild();
 					}

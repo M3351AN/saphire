@@ -10,8 +10,7 @@
 #include "../menu.h"
 #include "../../hooks/Render.h"
 
-#define VERSION crypt_str("limehook | ")
-
+static std::deque<misc::incomingSequence> sequences;
 void misc::watermark()
 {
 	if (!vars.menu.watermark)
@@ -70,17 +69,17 @@ void misc::ChatSpamer()
 		crypt_str("AimWhere - stay with us or lose the game."),
 		crypt_str("Get good. Get AimWhere."),
 		crypt_str("AimWhere - just the best."),
-		crypt_str("Go to another level with AimWhere."),
+		crypt_str("Go to another level with AimWhere.")
 	};
 
 	static auto lastspammed = 0;
 
-	if (m_globals()->m_tickcount - lastspammed > 800)
+	if (GetTickCount() - lastspammed > 800)
 	{
-		lastspammed = m_globals()->m_tickcount;
+		lastspammed = GetTickCount();
 
 		srand(m_globals()->m_tickcount);
-		std::string msg = crypt_str("say ") + chatspam[rand() % 4];
+		std::string msg = crypt_str("say ") + chatspam[rand() % 1];
 
 		m_engine()->ExecuteClientCmd(msg.c_str());
 	}

@@ -17,6 +17,9 @@ void knifebot::run(CUserCmd* cmd)
 	if (!vars.ragebot.enable)
 		return;
 
+	if (!vars.ragebot.knife_bot)
+		return;
+
 	if (!csgo.globals.weapon->is_knife())
 		return;
 

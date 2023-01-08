@@ -63,7 +63,9 @@ void C_ConfigManager::setup()
 	setup_item(&vars.ragebot.knife_bot, false, crypt_str("Ragebot.knife_bot"));
 	setup_item(&vars.ragebot.autoshoot, false, crypt_str("Ragebot.autoshoot"));
 	setup_item(&vars.ragebot.double_tap, false, crypt_str("Ragebot.double_tap"));
-	setup_item(&vars.ragebot.slow_teleport, false, crypt_str("Ragebot.slow_teleport"));
+	setup_item(&vars.ragebot.dt_teleport, false, crypt_str("Ragebot.dt_teleport"));
+	//setup_item(&vars.ragebot.slow_teleport, false, crypt_str("Ragebot.slow_teleport"));
+	setup_item(&vars.ragebot.fl0_onshot, false, crypt_str("Ragebot.fl0_onshot"));
 	setup_item(&vars.ragebot.double_tap_key, key_bind(TOGGLE), crypt_str("Ragebot.double_tap_key"));
 	setup_item(&vars.ragebot.autoscope, false, crypt_str("Ragebot.autoscope"));
 	setup_item(&vars.ragebot.safe_point_key, key_bind(HOLD), crypt_str("Ragebot.safe_point_key"));
@@ -348,6 +350,7 @@ void C_ConfigManager::setup()
 	setup_item(&vars.misc.buybot1, 0, crypt_str("Player.buybot1"));
 	setup_item(&vars.misc.buybot2, 0, crypt_str("Player.buybot2"));
 	setup_item(&vars.misc.buybot3, 4, crypt_str("Misc.buybot3"));
+	setup_item(&vars.misc.IQ_boost, true, crypt_str("IQ_boost"));
 
 	setup_item(&vars.skins.rare_animations, false, crypt_str("Skins.rare_animations"));
 

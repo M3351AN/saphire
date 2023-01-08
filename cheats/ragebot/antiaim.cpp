@@ -147,6 +147,8 @@ float antiaim::get_yaw(CUserCmd* m_pcmd)
 	}
 	else
 	{
+		if ((csgo.globals.last_aimbot_shot + 15 > m_globals()->m_tickcount) && vars.ragebot.fl0_onshot && !csgo.globals.exploits)
+			return yaw;
 		if (manual_side == SIDE_NONE)
 			freestanding(m_pcmd);
 		else
