@@ -80,9 +80,9 @@ void C_ConfigManager::setup()
 		setup_item(&vars.ragebot.weapon[i].double_tap_hitchance_amount, 1, std::to_string(i) + crypt_str("Ragebot.double_tap_hitchance_amount"));
 		setup_item(&vars.ragebot.weapon[i].hitchance, false, std::to_string(i) + crypt_str("Ragebot.hitchance"));
 		setup_item(&vars.ragebot.weapon[i].hitchance_amount, 1, std::to_string(i) + crypt_str("Ragebot.hitchance_amount"));
-		setup_item(&vars.ragebot.weapon[i].accuracy_boost, false, std::to_string(i) + crypt_str("Ragebot.accuracy_boost"));
-		setup_item(&vars.ragebot.weapon[i].accuracy_boost_amount, 1, std::to_string(i) + crypt_str("Ragebot.accuracy_boost_amount"));
-		setup_item(&vars.ragebot.weapon[i].minimum_visible_damage, 1, std::to_string(i) + crypt_str("Ragebot.minimum_visible_damage"));
+		//setup_item(&vars.ragebot.weapon[i].accuracy_boost, false, std::to_string(i) + crypt_str("Ragebot.accuracy_boost"));
+		setup_item(&vars.ragebot.weapon[i].accuracy_boost_amount, 100, std::to_string(i) + crypt_str("Ragebot.accuracy_boost_amount"));
+		setup_item(&vars.ragebot.weapon[i].minimum_visible_damage, 1.0f, std::to_string(i) + crypt_str("Ragebot.minimum_visible_damage"));
 		setup_item(&vars.ragebot.weapon[i].minimum_damage, 1, std::to_string(i) + crypt_str("Ragebot.minimum_damage"));
 		setup_item(&vars.ragebot.weapon[i].minimum_override_damage, 1, std::to_string(i) + crypt_str("Ragebot.minimum_override_damage"));
 		setup_item(&vars.ragebot.weapon[i].hitboxes, 9, std::to_string(i) + crypt_str("Ragebot.hitboxes"));
