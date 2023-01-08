@@ -1815,13 +1815,14 @@ void c_menu::draw(bool is_open)
 								//ImGui::Checkbox(crypt_str("Manual indicator"), &vars.antiaim.flip_indicator);
 								//ImGui::SameLine();
 								//ImGui::ColorEdit(crypt_str("##invc"), &vars.antiaim.flip_indicator_color, ALPHA);
-								//ImGui::SetCursorPosX(8); ImGui::Text("Manual back");
-								//draw_keybind(crypt_str("Manual back"), &vars.antiaim.manual_back, crypt_str("##HOTKEY_INVERT_BACK"));
-								//ImGui::SetCursorPosX(8); ImGui::Text("Manual left");
-								//draw_keybind(crypt_str("Manual left"), &vars.antiaim.manual_left, crypt_str("##HOTKEY_INVERT_LEFT"));
-								//ImGui::SetCursorPosX(8); ImGui::Text("Manual right");
-								//draw_keybind(crypt_str("Manual right"), &vars.antiaim.manual_right, crypt_str("##HOTKEY_INVERT_RIGHT"));
-								ImGui::Text("In developing");
+								ImGui::SetCursorPosX(8); ImGui::Text("Manual back");
+								draw_keybind(crypt_str("Manual back"), &vars.antiaim.manual_back, crypt_str("##HOTKEY_INVERT_BACK"));
+								ImGui::SetCursorPosX(8); ImGui::Text("Manual left");
+								draw_keybind(crypt_str("Manual left"), &vars.antiaim.manual_left, crypt_str("##HOTKEY_INVERT_LEFT"));
+								ImGui::SetCursorPosX(8); ImGui::Text("Manual right");
+								draw_keybind(crypt_str("Manual right"), &vars.antiaim.manual_right, crypt_str("##HOTKEY_INVERT_RIGHT"));
+								
+								//ImGui::Text("In developing");
 
 							}
 
