@@ -72,6 +72,7 @@ void aim::run(CUserCmd* cmd)
 		return;
 
 	fire(cmd);
+	CheckIfSend();
 }
 
 void aim::automatic_revolver(CUserCmd* cmd)
@@ -692,9 +693,12 @@ static bool compare_targets(const scanned_target& first, const scanned_target& s
 {
 	if (vars.player_list.high_priority[first.record->i] != vars.player_list.high_priority[second.record->i])
 		return vars.player_list.high_priority[first.record->i];
-
+	if (first.data.damage > second.data.damage)
+		return true;
+	else
+		return first.health < second.health;
 	//return first.data.damage > second.data.damage;
-	return first.health < second.health;
+	//return first.health < second.health;
 	//return first.health - first.data.damage < second.health - second.data.damage;//Best KD but very slow will cause FPS drop
 
 }
