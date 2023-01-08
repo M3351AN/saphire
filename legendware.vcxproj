@@ -23,7 +23,7 @@
     <ProjectGuid>{1B8103F7-F793-47B0-9FBE-44EC66BC319D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>legendware</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.20348.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
     <ProjectName>saphire</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -141,8 +141,7 @@
       <RuntimeTypeInfo>
       </RuntimeTypeInfo>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <AdditionalOptions>/utf-8</AdditionalOptions>
       <BasicRuntimeChecks>
       </BasicRuntimeChecks>
       <AdditionalIncludeDirectories>$(SolutionDir)lib\luabind-0.9.1;$(SolutionDir)lib\lua-5.2.0\src;$(SolutionDir)lib\boost_1_47_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

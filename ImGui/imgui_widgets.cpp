@@ -1301,7 +1301,7 @@ bool ImGui::PlusButton(const char* label, bool type, const ImVec2& size_arg, con
     if (!config)
         PushFont(c_menu::get().interfaces);
     if (!config)
-        window->DrawList->AddText(ImVec2(bb.Min.x + (size_arg.x / 2) - (CalcTextSize(!type ? "S" : "C").x / 2) + 1, bb.Min.y + (size_arg.y / 2) - (CalcTextSize(!type ? "S" : "C").y / 2)), ImColor(colr), !type ? "S" : "C");
+        window->DrawList->AddText(ImVec2(bb.Min.x + (size_arg.x / 2) - (CalcTextSize(!type ? "S" : "Col").x / 2) + 1, bb.Min.y + (size_arg.y / 2) - (CalcTextSize(!type ? "S" : "Col").y / 2)), ImColor(colr), !type ? "S" : "Col");
     else
         window->DrawList->AddText(ImVec2(bb.Min.x + (size_arg.x / 2) - (CalcTextSize(label).x / 2), bb.Min.y + (size_arg.y / 2) - (CalcTextSize(label).y / 2)), ImColor(colr), label);
     if (!config)

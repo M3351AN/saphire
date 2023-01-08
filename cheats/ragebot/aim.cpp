@@ -613,8 +613,10 @@ std::vector <scan_point> aim::get_points(adjust_data* record, int hitbox, bool f
 		{
 			if (hitbox == HITBOX_HEAD)
 				scale = vars.ragebot.weapon[csgo.globals.current_weapon].head_scale;
-			else
+			else if (hitbox == (HITBOX_NECK||HITBOX_PELVIS||HITBOX_STOMACH||HITBOX_LOWER_CHEST||HITBOX_CHEST||HITBOX_UPPER_CHEST))
 				scale = vars.ragebot.weapon[csgo.globals.current_weapon].body_scale;
+			else
+				scale = vars.ragebot.weapon[csgo.globals.current_weapon].limb_scale;
 		}
 		else
 		{

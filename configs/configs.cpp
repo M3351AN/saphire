@@ -87,6 +87,7 @@ void C_ConfigManager::setup()
 		setup_item(&vars.ragebot.weapon[i].static_point_scale, false, std::to_string(i) + crypt_str("Ragebot.static_point_scale"));
 		setup_item(&vars.ragebot.weapon[i].head_scale, 0.0f, std::to_string(i) + crypt_str("Ragebot.head_scale"));
 		setup_item(&vars.ragebot.weapon[i].body_scale, 0.0f, std::to_string(i) + crypt_str("Ragebot.body_scale"));
+		setup_item(&vars.ragebot.weapon[i].limb_scale, 0.0f, std::to_string(i) + crypt_str("Ragebot.limb_scale"));
 		setup_item(&vars.ragebot.weapon[i].max_misses, false, std::to_string(i) + crypt_str("Ragebot.max_misses"));
 		setup_item(&vars.ragebot.weapon[i].max_misses_amount, 0, std::to_string(i) + crypt_str("Ragebot.max_misses_amount"));
 		setup_item(&vars.ragebot.weapon[i].prefer_safe_points, false, std::to_string(i) + crypt_str("Ragebot.prefer_safe_points"));
@@ -570,13 +571,13 @@ void C_ConfigManager::save(std::string config)
 
 	std::string data;
 
-	Base64 base64;
-	base64.encode(allJson.dump(), &data);
+	//Base64 base64;
+	//base64.encode(allJson.dump(), &data);
 
 	std::ofstream ofs;
 	ofs.open(file + '\0', std::ios::out | std::ios::trunc);
 
-	ofs << std::setw(4) << data << std::endl;
+	ofs << std::setw(4) << allJson.dump() << std::endl;
 	ofs.close();
 }
 
@@ -618,15 +619,15 @@ void C_ConfigManager::load(std::string config, bool load_script_items)
 	if (data.empty())
 		return;
 
-	Base64 base64;
+	//Base64 base64;
 
-	std::string decoded_data;
-	base64.decode(data, &decoded_data);
+	//std::string decoded_data;
+	//base64.decode(data, &decoded_data);
 
 	std::ofstream ofs;
 	ofs.open(file + '\0', std::ios::out | std::ios::trunc);
 
-	ofs << decoded_data;
+	ofs << data;
 	ofs.close();
 
 	json allJson;
@@ -637,12 +638,12 @@ void C_ConfigManager::load(std::string config, bool load_script_items)
 	ifs_final >> allJson;
 	ifs_final.close();
 
-	base64.encode(allJson.dump(), &data);
+	//base64.encode(allJson.dump(), &data);
 
 	std::ofstream final_ofs;
 	final_ofs.open(file + '\0', std::ios::out | std::ios::trunc);
 
-	final_ofs << data;
+	final_ofs << allJson.dump();
 	final_ofs.close();
 
 	for (auto it = allJson.begin(); it != allJson.end(); ++it)
@@ -814,7 +815,7 @@ void C_ConfigManager::config_files()
 	get_dir();
 	files.clear();
 
-	std::string path = folder + crypt_str("/*.cfg");
+	std::string path = folder + crypt_str("/*.spr");
 	WIN32_FIND_DATA fd;
 
 	HANDLE hFind = FindFirstFile(path.c_str(), &fd);

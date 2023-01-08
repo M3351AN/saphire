@@ -125,7 +125,7 @@ namespace hooks
 		char windows_directory[MAX_PATH];
 		GetWindowsDirectory(windows_directory, MAX_PATH);
 
-		auto verdana_directory = (std::string)windows_directory + "\\Fonts\\Verdana.ttf";
+		auto verdana_directory = (std::string)windows_directory + "\\Fonts\\UDDigiKyokashoN-R.ttc";
 		ImFontConfig font_config;
 		font_config.OversampleH = 1; //or 2 is the same
 		font_config.OversampleV = 1;
@@ -135,20 +135,22 @@ namespace hooks
 		{
 			0x0020, 0x00FF, // Basic Latin + Latin Supplement
 			0x0400, 0x044F, // Cyrillic
+			0x0804, 0x0004,//CH-S
+			0x0404, 0x7C04,//CH-T
 			0,
 		};
 		// Menu fonts
 		
-		c_menu::get().esp_name = io.Fonts->AddFontFromMemoryTTF((void*)font, sizeof(font), 12.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+		c_menu::get().esp_name = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc", 12.0f, NULL, ranges);
 		c_menu::get().esp_weapon = io.Fonts->AddFontFromMemoryTTF((void*)weapons_font, sizeof(weapons_font), 15, &font_config, io.Fonts->GetGlyphRangesDefault());
-		c_menu::get().smallest_pixel = io.Fonts->AddFontFromMemoryTTF((void*)font, sizeof(font), 12.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-		c_menu::get().name = io.Fonts->AddFontFromMemoryTTF((void*)font, sizeof(font), 38.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-		c_menu::get().isis = io.Fonts->AddFontFromMemoryTTF((void*)font, sizeof(font), 21.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
+		c_menu::get().smallest_pixel = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc", 12.0f, NULL, ranges);
+		c_menu::get().name = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc", 38.0f, NULL, ranges);
+		c_menu::get().isis = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc", 21.0f, NULL, ranges);
 		c_menu::get().icon_font = io.Fonts->AddFontFromMemoryTTF((void*)Icons, sizeof(Icons), 40, &font_config, io.Fonts->GetGlyphRangesDefault());
 		c_menu::get().weapon_icons = io.Fonts->AddFontFromMemoryTTF((void*)weapons_font, sizeof(weapons_font), 18, &font_config, io.Fonts->GetGlyphRangesDefault());
 		c_menu::get().weapon_icons2 = io.Fonts->AddFontFromMemoryTTF((void*)weapons_font, sizeof(weapons_font), 20, &font_config, io.Fonts->GetGlyphRangesDefault());
-		c_menu::get().font = io.Fonts->AddFontFromMemoryTTF((void*)font, sizeof(font), 13.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
-		c_menu::get().interfaces = io.Fonts->AddFontFromMemoryTTF((void*)interfaces, sizeof(interfaces), 15.f * 1.25, &font_config, ranges);
+		c_menu::get().font = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc", 13.0f, NULL, ranges);
+		c_menu::get().interfaces = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc", 15.f * 1.25, &font_config, ranges);
 		c_menu::get().timersz = io.Fonts->AddFontFromMemoryTTF((void*)timers, sizeof(timers), 20, &font_config, ranges);
 		
 		if (c_menu::get().tt_a == nullptr) {

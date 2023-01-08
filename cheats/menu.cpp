@@ -223,6 +223,8 @@ void c_menu::menu_setup(ImGuiStyle& style) //-V688
 		if (!all_skins[i])
 			all_skins[i] = get_skin_preview(get_wep(i, (i == 0 || i == 1) ? vars.skins.skinChanger.at(i).definition_override_vector_index : -1, i == 0).c_str(), vars.skins.skinChanger.at(i).skin_name, device); //-V810
 
+
+
 	menu_setupped = true; // we dont want to setup menu again
 }
 
@@ -376,8 +378,8 @@ void add_config()
 		vars.new_config_name = crypt_str("config");
 
 	notify::add_log("Cheat", crypt_str("Added ") + vars.new_config_name + crypt_str(" config"), Color(vars.misc.menu_color));
-	if (vars.new_config_name.find(crypt_str(".cfg")) == std::string::npos)
-		vars.new_config_name += crypt_str(".cfg");
+	if (vars.new_config_name.find(crypt_str(".spr")) == std::string::npos)
+		vars.new_config_name += crypt_str(".spr");
 
 	cfg_manager->save(vars.new_config_name);
 	cfg_manager->config_files();
@@ -1263,7 +1265,7 @@ const char* GetWeaponName(int id)
 	}
 }
 
-#define VERSION crypt_str(u8"saphire[Kai]")
+#define VERSION crypt_str("saphire[改]")
 auto menuPos = ImVec2{ 0,0 };
 static int tab_anim = 42;
 void c_menu::waterwark()
@@ -1283,7 +1285,7 @@ void c_menu::waterwark()
 		watermark += crypt_str(" | ") + comp_name();
 
 	if (vars.misc.watermarkadditives[WATERMARK_FPS])
-		watermark += crypt_str(" | ") + std::to_string(csgo.globals.framerate) + crypt_str(" fps ");
+		watermark += crypt_str(" | ") + std::to_string(csgo.globals.framerate) + crypt_str(" F/s ");
 
 	if (m_engine()->IsInGame())
 	{
@@ -1293,10 +1295,10 @@ void c_menu::waterwark()
 		{
 			auto server = nci->GetAddress();
 
-			if (!strcmp(server, crypt_str("loopback")))
-				server = crypt_str("local server");
+			if (!strcmp(server, crypt_str("loopBack")))
+				server = crypt_str("localServer");
 			else if (m_gamerules()->m_bIsValveDS())
-				server = crypt_str("valve server");
+				server = crypt_str("valveServer");
 
 			auto tickrate = std::to_string((int)(1.0f / m_globals()->m_intervalpertick));
 
@@ -1314,7 +1316,7 @@ void c_menu::waterwark()
 	else
 	{
 		if (vars.misc.watermarkadditives[WATERMARK_SERVER])
-			watermark += crypt_str(" | no connection ");
+			watermark += crypt_str(" | noConnection ");
 
 	}
 
@@ -1421,7 +1423,7 @@ void c_menu::draw(bool is_open)
 			}
 			ImGui::GetForegroundDrawList()->AddRectFilled(ImVec2(p.x, p.y), ImVec2(p.x + tab_anim, p.y + s.y - 20), ImColor(39, 39, 39, int(public_alpha * 255)));
 			ImGui::PushFont(font);
-			draw->AddText(ImVec2(p.x + 5, p.y + s.y - 20 + (10 - ImGui::CalcTextSize(std::string(u8"saphire[Kai] " + build + " | build at: " + build_at + " | " + sponsor).c_str()).y / 2)), ImColor(220, 220, 220, int(public_alpha * 255)), std::string(u8"saphire[Kai] " + build + " | build at: " + build_at + " | " + sponsor).c_str());
+			draw->AddText(ImVec2(p.x + 5, p.y + s.y - 20 + (10 - ImGui::CalcTextSize(std::string(u8"saphire[改] " + build + " | build at: " + build_at + " | " + sponsor).c_str()).y / 2)), ImColor(220, 220, 220, int(public_alpha * 255)), std::string(u8"saphire[改] " + build + " | build at: " + build_at + " | " + sponsor).c_str());
 			draw->AddText(ImVec2(p.x + s.x - 5 - ImGui::CalcTextSize(std::string("Welcome back, " + uname).c_str()).x, p.y + s.y - 20 + (10 - ImGui::CalcTextSize(std::string("Welcome back, " + uname).c_str()).y / 2)), ImColor(220, 220, 220, int(public_alpha * 255)), std::string("Welcome back, " + uname).c_str());
 			ImGui::PopFont();
 			{
@@ -1431,7 +1433,7 @@ void c_menu::draw(bool is_open)
 				else if (tab_anim < 220 && ss > 0.f)
 					ss -= 0.04f;
 				ImGui::PushFont(name);
-				ImGui::GetForegroundDrawList()->AddText(ImVec2(p.x + tab_anim / 2 - ImGui::CalcTextSize("saphire[Kai]").x / 2, p.y + 20 - ImGui::CalcTextSize("saphire[Kai]").y / 2), ImColor(vars.misc.menu_color.r() / 255.f, vars.misc.menu_color.g() / 255.f, vars.misc.menu_color.b() / 255.f, ImClamp(ss * 2.f, 0.f, 1.f)), "saphire[Kai]");
+				ImGui::GetForegroundDrawList()->AddText(ImVec2(p.x + tab_anim / 2 - ImGui::CalcTextSize("saphire[改]").x / 2, p.y + 20 - ImGui::CalcTextSize("saphire[改]").y / 2), ImColor(vars.misc.menu_color.r() / 255.f, vars.misc.menu_color.g() / 255.f, vars.misc.menu_color.b() / 255.f, ImClamp(ss * 2.f, 0.f, 1.f)), "saphire[改]");
 				ImGui::PopFont();
 			}
 		}
@@ -1569,6 +1571,7 @@ void c_menu::draw(bool is_open)
 								{
 									ImGui::SliderFloat(crypt_str("Head scale"), &vars.ragebot.weapon[hooks::rage_weapon].head_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].head_scale ? crypt_str("%.2f") : crypt_str("None"));
 									ImGui::SliderFloat(crypt_str("Body scale"), &vars.ragebot.weapon[hooks::rage_weapon].body_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].body_scale ? crypt_str("%.2f") : crypt_str("None"));
+									ImGui::SliderFloat(crypt_str("Limb scale"), &vars.ragebot.weapon[hooks::rage_weapon].limb_scale, 0.0f, 1.0f, vars.ragebot.weapon[hooks::rage_weapon].limb_scale ? crypt_str("%.2f") : crypt_str("None"));
 								}
 								ImGui::Checkbox(crypt_str("Prefer body aim"), &vars.ragebot.weapon[hooks::rage_weapon].prefer_body_aim);
 								ImGui::Checkbox(crypt_str("Prefer safe point"), &vars.ragebot.weapon[hooks::rage_weapon].prefer_safe_points);
@@ -1608,6 +1611,7 @@ void c_menu::draw(bool is_open)
 
 								if (vars.ragebot.damage_override_key.key > KEY_NONE && vars.ragebot.damage_override_key.key < KEY_MAX)
 									ImGui::SliderInt(crypt_str("Override damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_override_damage, 1, 120, true);
+								//if （hooks::rage_weapon == 6)waitformeforjmpssg
 							}
 							ImGui::EndMenuChild();
 
@@ -1813,13 +1817,14 @@ void c_menu::draw(bool is_open)
 								//ImGui::Checkbox(crypt_str("Manual indicator"), &vars.antiaim.flip_indicator);
 								//ImGui::SameLine();
 								//ImGui::ColorEdit(crypt_str("##invc"), &vars.antiaim.flip_indicator_color, ALPHA);
-								//ImGui::SetCursorPosX(8); ImGui::Text("Manual back");
-								//draw_keybind(crypt_str("Manual back"), &vars.antiaim.manual_back, crypt_str("##HOTKEY_INVERT_BACK"));
-								//ImGui::SetCursorPosX(8); ImGui::Text("Manual left");
-								//draw_keybind(crypt_str("Manual left"), &vars.antiaim.manual_left, crypt_str("##HOTKEY_INVERT_LEFT"));
-								//ImGui::SetCursorPosX(8); ImGui::Text("Manual right");
-								//draw_keybind(crypt_str("Manual right"), &vars.antiaim.manual_right, crypt_str("##HOTKEY_INVERT_RIGHT"));
-								ImGui::Text("In developing");
+								ImGui::SetCursorPosX(8); ImGui::Text("Manual back");
+								draw_keybind(crypt_str("Manual back"), &vars.antiaim.manual_back, crypt_str("##HOTKEY_INVERT_BACK"));
+								ImGui::SetCursorPosX(8); ImGui::Text("Manual left");
+								draw_keybind(crypt_str("Manual left"), &vars.antiaim.manual_left, crypt_str("##HOTKEY_INVERT_LEFT"));
+								ImGui::SetCursorPosX(8); ImGui::Text("Manual right");
+								draw_keybind(crypt_str("Manual right"), &vars.antiaim.manual_right, crypt_str("##HOTKEY_INVERT_RIGHT"));
+								
+								//ImGui::Text("In developing");
 
 							}
 
