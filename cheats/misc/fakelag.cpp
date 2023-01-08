@@ -9,7 +9,7 @@
 
 void fakelag::Fakelag(CUserCmd* m_pcmd)
 {
-	if (csgo.globals.should_disable_packet)
+	if ((csgo.globals.last_aimbot_shot + 15 > m_globals()->m_tickcount) && vars.ragebot.fl0_onshot && !csgo.globals.exploits)
 		return;
 	if (vars.antiaim.fakelag && !csgo.globals.exploits)
 	{

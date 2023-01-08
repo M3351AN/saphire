@@ -99,7 +99,6 @@ public:
 		bool should_update_radar = false;
 		bool updating_skins = false;
 		bool should_update_weather = false;
-		bool should_disable_packet = false;
 
 		int shift_time = 0;
 		int framerate = 0;

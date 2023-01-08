@@ -72,7 +72,6 @@ void aim::run(CUserCmd* cmd)
 		return;
 
 	fire(cmd);
-	CheckIfSend();
 }
 
 void aim::automatic_revolver(CUserCmd* cmd)
@@ -863,12 +862,7 @@ void aim::fire(CUserCmd* cmd)
 	csgo.globals.last_aimbot_shot = m_globals()->m_tickcount;
 
 }
-void aim::CheckIfSend() {
-	if ((csgo.globals.last_aimbot_shot + 15 > m_globals()->m_tickcount) && vars.ragebot.fl0_onshot && !csgo.globals.exploits)
-		csgo.globals.should_disable_packet = true;
-	else
-		csgo.globals.should_disable_packet = false;
-}
+
 static const int iTotalSeeds = 255;
 static std::vector<std::tuple<float, float, float>> PreComputedSeeds = {};
 void BulidSeedTable() {
