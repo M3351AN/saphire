@@ -613,7 +613,7 @@ std::vector <scan_point> aim::get_points(adjust_data* record, int hitbox, bool f
 		{
 			if (hitbox == HITBOX_HEAD)
 				scale = vars.ragebot.weapon[csgo.globals.current_weapon].head_scale;
-			else if (hitbox == (HITBOX_NECK||HITBOX_PELVIS||HITBOX_STOMACH||HITBOX_LOWER_CHEST||HITBOX_CHEST||HITBOX_UPPER_CHEST))
+			else if (hitbox == (HITBOX_NECK || HITBOX_PELVIS || HITBOX_STOMACH || HITBOX_LOWER_CHEST || HITBOX_CHEST || HITBOX_UPPER_CHEST))
 				scale = vars.ragebot.weapon[csgo.globals.current_weapon].body_scale;
 			else
 				scale = vars.ragebot.weapon[csgo.globals.current_weapon].limb_scale;
@@ -747,9 +747,13 @@ void aim::fire(CUserCmd* cmd)
 
 	if (!vars.ragebot.autoshoot && !(cmd->m_buttons & IN_ATTACK))
 		return;
-
-
-	auto hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].hitchance_amount;
+	auto hitchance_amount = 0;
+	if (misc::get().double_tap_key && vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance)
+		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance_amount;
+	else if (vars.ragebot.weapon[csgo.globals.current_weapon].air_shot && !(csgo.local()->m_fFlags() & FL_ONGROUND))
+		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].air_hitchance_amount;
+	else
+		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].hitchance_amount;
 
 	auto is_valid_hitchance = hitchance(aim_angle, final_target.record->player, hitchance_amount);
 
@@ -781,7 +785,7 @@ void aim::fire(CUserCmd* cmd)
 
 		static auto sv_maxunlag = m_cvar()->FindVar(crypt_str("sv_maxunlag"));
 
-		auto correct = math::clamp(net_channel_info->GetLatency(FLOW_OUTGOING) + net_channel_info->GetLatency(FLOW_INCOMING) + util::get_interpolation(), 0.0f, sv_maxunlag->GetFloat());
+		auto correct = math::clamp(net_channel_info->GetLatency(FLOW_OUTGOING) + net_channel_info->GetLatency(FLOW_INCOMING) + util::get_interpolation(), 0.0f, sv_maxunlag->GetFloat());//this line said error but idk
 		auto delta_time = correct - (TICKS_TO_TIME(original_tickbase) - final_target.record->simulation_time);
 
 		backtrack_ticks = TIME_TO_TICKS(fabs(delta_time));

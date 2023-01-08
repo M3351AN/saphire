@@ -354,6 +354,8 @@ struct Config
 			bool autostop;
 			std::vector <int> autostop_modifiers;
 			int selection_type;
+			bool air_shot;
+			int air_hitchance_amount;
 		} weapon[9];
 	} ragebot;
 

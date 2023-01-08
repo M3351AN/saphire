@@ -1596,6 +1596,11 @@ void c_menu::draw(bool is_open)
 								if (vars.ragebot.weapon[hooks::rage_weapon].hitchance)
 									ImGui::SliderInt(crypt_str("Hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].hitchance_amount, 1, 100);
 
+								ImGui::Checkbox(crypt_str("DT hitchance"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance);
+
+								if (vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance)
+									ImGui::SliderInt(crypt_str("DT hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance_amount, 1, 100);
+
 
 								ImGui::Checkbox(crypt_str("Accuracy boost"), &vars.ragebot.weapon[hooks::rage_weapon].accuracy_boost);
 
@@ -1607,11 +1612,13 @@ void c_menu::draw(bool is_open)
 									ImGui::SliderInt(crypt_str("Non Visible damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_damage, 1, 120, true);
 								ImGui::SetCursorPosX(8); ImGui::Text("Damage override");
 								draw_keybind(crypt_str("Damage override"), &vars.ragebot.damage_override_key, crypt_str("##HOTKEY__DAMAGE_OVERRIDE"));
-
+								
 
 								if (vars.ragebot.damage_override_key.key > KEY_NONE && vars.ragebot.damage_override_key.key < KEY_MAX)
 									ImGui::SliderInt(crypt_str("Override damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_override_damage, 1, 120, true);
-								//if （hooks::rage_weapon == 6)waitformeforjmpssg
+								ImGui::Checkbox(crypt_str("Air shot"), &vars.ragebot.weapon[hooks::rage_weapon].air_shot);
+								if (vars.ragebot.weapon[hooks::rage_weapon].air_shot)
+									ImGui::SliderInt(crypt_str("Air hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].air_hitchance_amount, 1, 100);
 							}
 							ImGui::EndMenuChild();
 
@@ -1639,12 +1646,12 @@ void c_menu::draw(bool is_open)
 							ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 295, pad.y + 54 + 20 * stab_anim));
 							ImGui::MenuChild(crypt_str("Exploit"), ImVec2(290, 198 - 20 * stab_anim));
 							{
-								ImGui::Checkbox(crypt_str("HS"), &vars.antiaim.hide_shots);
+								ImGui::Checkbox(crypt_str("Hide shot"), &vars.antiaim.hide_shots);
 								ImGui::SameLine();
 								draw_keybind(crypt_str(""), &vars.antiaim.hide_shots_key, crypt_str("##HOTKEY_HIDESHOTS"));
 
 
-								ImGui::Checkbox(crypt_str("DT"), &vars.ragebot.double_tap);
+								ImGui::Checkbox(crypt_str("Double tap"), &vars.ragebot.double_tap);
 								ImGui::SameLine();
 								draw_keybind(crypt_str(""), &vars.ragebot.double_tap_key, crypt_str("##HOTKEY_DOUBLETAP"));
 
