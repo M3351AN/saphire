@@ -321,7 +321,8 @@ struct Config
 		bool knife_bot;
 		bool autoshoot;
 		bool double_tap;
-		bool slow_teleport;
+		bool fl0_onshot;
+		//bool slow_teleport;
 		key_bind double_tap_key;
 		bool autoscope;
 		bool dt_teleport;

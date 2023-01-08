@@ -65,6 +65,7 @@ class ctx_t  //-V730
 public:
 	struct Globals  //-V730
 	{			
+		int shot_tick = 0;
 		bool loaded_script = false;
 		bool focused_on_input = false;
 		bool double_tap_fire = false;

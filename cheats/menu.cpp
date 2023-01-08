@@ -1598,12 +1598,13 @@ void c_menu::draw(bool is_open)
 
 								if (vars.ragebot.weapon[hooks::rage_weapon].hitchance)
 									ImGui::SliderInt(crypt_str("Hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].hitchance_amount, 1, 100);
+								if (vars.ragebot.double_tap)
+								{
+									ImGui::Checkbox(crypt_str("DT hitchance"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance);
 
-								ImGui::Checkbox(crypt_str("DT hitchance"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance);
-
-								if (vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance)
-									ImGui::SliderInt(crypt_str("DT hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance_amount, 1, 100);
-
+									if (vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance)
+										ImGui::SliderInt(crypt_str("DT hitchance amount"), &vars.ragebot.weapon[hooks::rage_weapon].double_tap_hitchance_amount, 1, 100);
+								}
 								ImGui::SliderInt(crypt_str("Visible damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_visible_damage, 1, 120, true);
 								if (vars.ragebot.autowall)
 									ImGui::SliderInt(crypt_str("Non Visible damage"), &vars.ragebot.weapon[hooks::rage_weapon].minimum_damage, 1, 120, true);
@@ -1651,7 +1652,6 @@ void c_menu::draw(bool is_open)
 								ImGui::SameLine();
 								draw_keybind(crypt_str(""), &vars.antiaim.hide_shots_key, crypt_str("##HOTKEY_HIDESHOTS"));
 
-
 								ImGui::Checkbox(crypt_str("Double tap"), &vars.ragebot.double_tap);
 								ImGui::SameLine();
 								draw_keybind(crypt_str(""), &vars.ragebot.double_tap_key, crypt_str("##HOTKEY_DOUBLETAP"));
@@ -1659,6 +1659,8 @@ void c_menu::draw(bool is_open)
 								if (vars.ragebot.double_tap) {
 									ImGui::Checkbox(crypt_str("Instant"), &vars.ragebot.dt_teleport);
 								}
+
+								ImGui::Checkbox(crypt_str("On shot disable choke"), &vars.ragebot.fl0_onshot);
 							}
 							ImGui::EndMenuChild();
 

@@ -147,6 +147,8 @@ float antiaim::get_yaw(CUserCmd* m_pcmd)
 	}
 	else
 	{
+		if (csgo.globals.should_disable_packet)
+			return;
 		if (manual_side == SIDE_NONE)
 			freestanding(m_pcmd);
 		else
