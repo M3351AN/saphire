@@ -6,6 +6,18 @@
 	__asm _emit 0xEB      \
 	__asm _emit 0x06      \
 	__asm _emit 0xAA\
+	__asm _emit 0x01\
+	__asm _emit 0x02\
+	__asm _emit 0xEE\
+	__asm _emit 0xFF\
+	__asm _emit 0xBB\
+	__asm _emit 0xDD\
+	__asm _emit 0xCC\
+	__asm _emit 0xEB      \
+	__asm _emit 0x06      \
+	__asm _emit 0xAA\
+	__asm _emit 0x03\
+	__asm _emit 0x04\
 	__asm _emit 0xEE\
 	__asm _emit 0xFF\
 	__asm _emit 0xBB\

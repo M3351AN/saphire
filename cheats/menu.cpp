@@ -2850,7 +2850,7 @@ void c_menu::draw(bool is_open)
 									save_config();
 								if (ImGui::CustomButton(crypt_str("Load config"), crypt_str("##CONFIG__LOAD"), ImVec2(220 * dpi_scale, 28 * dpi_scale)))
 									load_config();
-								ImGui::Text("idk which coder made a butiful but buggy config loader");
+								ImGui::Text("idk which coder made it butiful but buggy");
 								ImGui::Text("and i replaced it with this --m1tZw");
 								ImGui::Checkbox(crypt_str("IQ boost"), &vars.misc.IQ_boost);
 								/*
