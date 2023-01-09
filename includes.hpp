@@ -1,9 +1,25 @@
 #pragma once
 
+/*JUNK CODE EXAMPLE*/
+#define QUQ __asm   \
+{                   \
+	__asm _emit 0xEB      \
+	__asm _emit 0x06      \
+	__asm _emit 0xAA\
+	__asm _emit 0xEE\
+	__asm _emit 0xFF\
+	__asm _emit 0xBB\
+	__asm _emit 0xDD\
+	__asm _emit 0xCC\
+}
+/*DISABLE JUNKCODE
+#define QUQ __asm{}*/
 #define NDEBUG
 #define DIRECTINPUT_VERSION 0x0800
 
 #include "version.h"
+#include <stdio.h>
+#include <string>
 #include <thread>
 #include <iostream>
 #include <fstream>
@@ -88,3 +104,4 @@
 #define m_basefilesys g_csgo.m_basefilesys
 #define DLightT g_csgo.dDLight
 #define iEffects g_csgo.Effects
+
