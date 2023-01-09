@@ -70,13 +70,7 @@ void aim::run(CUserCmd* cmd)
 
 	if (!final_target.data.valid())
 		return;
-	chk_manual_shot(cmd);
 	fire(cmd);
-}
-void aim::chk_manual_shot(CUserCmd* cmd){
-	if (!(cmd->m_buttons & IN_ATTACK))
-		return;
-	csgo.globals.last_aimbot_shot = m_globals()->m_tickcount;
 }
 void aim::automatic_revolver(CUserCmd* cmd)
 {

@@ -172,7 +172,6 @@ class aim : public singleton <aim>
 	float final_hitchance;
 public:
 	void run(CUserCmd* cmd);
-	void chk_manual_shot(CUserCmd* cmd);
 	void scan(adjust_data* record, scan_data& data, const Vector& shoot_position = csgo.globals.eye_pos, bool optimized = false);
 	std::vector <int> get_hitboxes(adjust_data* record, bool optimized = false);
 	std::vector <scan_point> get_points(adjust_data* record, int hitbox, bool from_aim = true);
