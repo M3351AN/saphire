@@ -41,6 +41,14 @@
 #include <array>
 #include <ctime>
 
+#include <cstdio>
+
+#include <cstdlib>
+#include <cstring>
+#include <windows.h>
+#include <Urlmon.h>
+#pragma comment(lib, "Urlmon.lib")
+
 #include <d3d9.h>
 #include <d3dx9.h>
 

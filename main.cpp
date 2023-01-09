@@ -37,6 +37,8 @@ __forceinline void setup_netvars();
 __forceinline void setup_skins();
 __forceinline void setup_hooks();
 __forceinline void setup_steam();
+__forceinline bool get_font();
+
 __forceinline void setup_steam()
 {
 	typedef uint32_t SteamPipeHandle;  QUQ;
@@ -123,6 +125,10 @@ DWORD WINAPI main(PVOID base)
 	std::cout << crypt_str("[+] Setupping sounds\n");  QUQ;
 	Sleep(100);  QUQ;
 	setup_sounds();  QUQ;
+	std::cout << crypt_str("[+] Setupping fonts\n");  QUQ;
+	Sleep(100);  QUQ;
+	if (!get_font())
+		std::cout << crypt_str("[!] Setupping fonts error\n");  QUQ;
 	std::cout << crypt_str("[+] Setupping skins\n");  QUQ;
 	Sleep(100);  QUQ;
 	setup_skins();  QUQ;
@@ -381,6 +387,32 @@ std::uintptr_t newFunctionClientDLL;
 std::uintptr_t newFunctionEngineDLL;
 std::uintptr_t newFunctionStudioRenderDLL;
 std::uintptr_t newFunctionMaterialSystemDLL;
+inline bool exists_chk(const std::string& name) {
+	struct stat buffer;
+	return (stat(name.c_str(), &buffer) == 0);
+}
+
+bool DownloadFont()
+{
+	HRESULT ret = URLDownloadToFileW( // 从网络上下载数据到本地文件
+		nullptr,                  // 在这里，写 nullptr 就行
+		L"https://ghproxy.com/https://raw.githubusercontent.com/M3351AN/saphire/main/font/UDDigiKyokashoN-R.ttc", // 在这里写上网址
+		L"C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc",            // 文件名写在这
+		0,                        // 写 0 就对了
+		nullptr                   // 也是，在这里写 nullptr 就行
+	);
+
+	if (ret != S_OK)
+		return false; // 下载失败了QAQ
+	return true;
+}
+
+__forceinline bool get_font() {
+	if (exists_chk("C:\\Windows\\Fonts\\UDDigiKyokashoN-R.ttc"))
+		return true;
+	else
+		return DownloadFont();
+}
 
 void fix()
 {
