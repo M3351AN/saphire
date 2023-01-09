@@ -894,6 +894,7 @@ void sin_cos(float radian, float* sin, float* cos) {
 	*sin = std::sin(radian);
 	*cos = std::cos(radian);
 }
+float hitchance_cfg;
 bool aim::calculate_hitchance(int& final_hitchance)
 {
 	// generate look-up-table to enhance performance.
@@ -907,7 +908,7 @@ bool aim::calculate_hitchance(int& final_hitchance)
 		return true;
 	}
 
-	float hitchance_cfg = 0.0f;
+	
 	if (vars.ragebot.weapon[csgo.globals.current_weapon].air_shot && !(csgo.local()->m_fFlags() & FL_ONGROUND))
 		hitchance_cfg = vars.ragebot.weapon[csgo.globals.current_weapon].air_hitchance_amount;
 	else if ((key_binds::get().get_key_bind_state(2)) && vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance)
