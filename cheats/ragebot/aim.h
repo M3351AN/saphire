@@ -165,7 +165,7 @@ class aim : public singleton <aim>
 	bool automatic_stop(CUserCmd* cmd);
 	void find_best_target();
 	void fire(CUserCmd* cmd);
-	int hitchance(const Vector& aim_angle);
+	bool calculate_hitchance(int& final_hitchance);
 
 	std::vector <scanned_target> scanned_targets;
 	scanned_target final_target;

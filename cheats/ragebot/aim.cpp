@@ -749,26 +749,31 @@ void aim::fire(CUserCmd* cmd)
 	if (!vars.ragebot.autoshoot && !(cmd->m_buttons & IN_ATTACK))
 		return;
 	auto final_hitchance = 0;
-	auto hitchance_amount = 1;
+	/*auto hitchance_amount = 1;
 	if ((key_binds::get().get_key_bind_state(2)) && vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance)
 		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance_amount;
 	else if (vars.ragebot.weapon[csgo.globals.current_weapon].air_shot && !(csgo.local()->m_fFlags() & FL_ONGROUND))
 		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].air_hitchance_amount;
 	else
-		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].hitchance_amount;
+		hitchance_amount = vars.ragebot.weapon[csgo.globals.current_weapon].hitchance_amount;*/
 
 	//auto is_valid_hitchance = hitchance(aim_angle, final_target.record->player, hitchance_amount);
-	auto is_zoomable_weapon = csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SCAR20 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_G3SG1 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SSG08 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_AWP;
+	
 	if (vars.ragebot.weapon[csgo.globals.current_weapon].hitchance)
 	{
-		final_hitchance = hitchance(aim_angle);
-		if (final_hitchance < hitchance_amount)
+		auto is_valid_hitchance = calculate_hitchance(final_hitchance);
+
+		if (!is_valid_hitchance)
 		{
+			auto is_zoomable_weapon = csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SCAR20 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_G3SG1 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SSG08 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_AWP;
+
 			if (vars.ragebot.autoscope && is_zoomable_weapon && !csgo.globals.weapon->m_zoomLevel())
 				cmd->m_buttons |= IN_ATTACK2;
 
 			return;
 		}
+	}
+
 		/*if (!is_valid_hitchance)
 		{
 			auto is_zoomable_weapon = csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SCAR20 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_G3SG1 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SSG08 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_AWP || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_AUG || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SG553;
@@ -778,7 +783,7 @@ void aim::fire(CUserCmd* cmd)
 
 			return;
 		}*/
-	}
+
 
 	//if (!is_valid_hitchance)
 		//return;
@@ -889,17 +894,48 @@ void sin_cos(float radian, float* sin, float* cos) {
 	*sin = std::sin(radian);
 	*cos = std::cos(radian);
 }
-int aim::hitchance(const Vector& aim_angle)
+bool aim::calculate_hitchance(int& final_hitchance)
 {
-	auto final_hitchance = 0;
-	auto weapon_info = csgo.globals.weapon->get_csweapon_info();
+	// generate look-up-table to enhance performance.
+	BulidSeedTable();
 
-	if (!weapon_info)
-		return final_hitchance;
+	const auto info = csgo.globals.weapon->get_csweapon_info();
 
-	if ((csgo.globals.eye_pos - final_target.data.point.point).Length() > weapon_info->flRange)
-		return final_hitchance;
+	if (!info)
+	{
+		final_hitchance = 0;
+		return true;
+	}
 
+	float hitchance_cfg = 0.0f;
+	if (vars.ragebot.weapon[csgo.globals.current_weapon].air_shot && !(csgo.local()->m_fFlags() & FL_ONGROUND))
+		hitchance_cfg = vars.ragebot.weapon[csgo.globals.current_weapon].air_hitchance_amount;
+	else if ((key_binds::get().get_key_bind_state(2)) && vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance)
+		hitchance_cfg = vars.ragebot.weapon[csgo.globals.current_weapon].double_tap_hitchance_amount;
+	else
+		hitchance_cfg = vars.ragebot.weapon[csgo.globals.current_weapon].hitchance_amount;
+
+	// performance optimization.
+	if ((csgo.globals.eye_pos - final_target.data.point.point).Length() > info->flRange)
+	{
+		final_hitchance = 0;
+		return true;
+	}
+
+	static auto nospread = m_cvar()->FindVar(crypt_str("weapon_accuracy_nospread"));
+
+	if (nospread->GetBool())
+	{
+		final_hitchance = INT_MAX;
+		return true;
+	}
+
+	// calculate inaccuracy.
+	const auto weapon_inaccuracy = csgo.globals.weapon->get_inaccuracy();
+
+	// calculate start and angle.
+	static auto weapon_recoil_scale = m_cvar()->FindVar(crypt_str("weapon_recoil_scale"));
+	const auto aim_angle = math::calculate_angle(csgo.globals.eye_pos, final_target.data.point.point) - (csgo.local()->m_aimPunchAngle() * weapon_recoil_scale->GetFloat());
 	auto forward = ZERO;
 	auto right = ZERO;
 	auto up = ZERO;
@@ -910,128 +946,56 @@ int aim::hitchance(const Vector& aim_angle)
 	math::fast_vec_normalize(right);
 	math::fast_vec_normalize(up);
 
-	auto is_special_weapon = csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_AWP || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_G3SG1 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SCAR20 || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SSG08;
-	auto inaccuracy = weapon_info->flInaccuracyStand;
+	// keep track of all traces that hit the enemy.
+	auto current = 0;
 
-	if (csgo.local()->m_fFlags() & FL_DUCKING)
+	// setup calculation parameters.
+	Vector total_spread, spread_angle, end;
+	float inaccuracy, spread_x, spread_y;
+	std::tuple<float, float, float>* seed;
+
+	// use look-up-table to find average hit probability.
+	for (auto i = 0u; i < 255; i++)  // NOLINT(modernize-loop-convert)
 	{
-		if (is_special_weapon)
-			inaccuracy = weapon_info->flInaccuracyCrouchAlt;
-		else
-			inaccuracy = weapon_info->flInaccuracyCrouch;
-	}
-	else if (is_special_weapon)
-		inaccuracy = weapon_info->flInaccuracyStandAlt;
+		// get seed.
+		seed = &PreComputedSeeds[i];
 
-	if (csgo.globals.inaccuracy - 0.000001f < inaccuracy)
-		final_hitchance = 101;
-	else
-	{
-		static auto setup_spread_values = true;
-		static float spread_values[256][6];
+		// calculate spread.
+		inaccuracy = std::get<0>(*seed) * weapon_inaccuracy;
+		spread_x = std::get<2>(*seed) * inaccuracy;
+		spread_y = std::get<1>(*seed) * inaccuracy;
+		total_spread = (forward + right * spread_x + up * spread_y);
+		total_spread.Normalize();
 
-		if (setup_spread_values)
+		// calculate angle with spread applied.
+		math::vector_angles(total_spread, spread_angle);
+
+		// calculate end point of trace.
+		math::angle_vectors(spread_angle, end);
+		end.Normalize();
+		end = csgo.globals.eye_pos + end * info->flRange;
+
+		// did we hit the hitbox?
+		if (hitbox_intersection(final_target.record->player, final_target.record->matrixes_data.main, final_target.data.hitbox, csgo.globals.eye_pos, end))
+			current++;
+
+		// abort if hitchance is already sufficent.
+		if ((static_cast<float>(current) / 255.f) * 100.f >= hitchance_cfg)
 		{
-			setup_spread_values = false;
-
-			for (auto i = 0; i < 256; ++i)
-			{
-				math::random_seed(i + 1);
-
-				auto a = math::random_float(0.0f, 1.0f);
-				auto b = math::random_float(0.0f, DirectX::XM_2PI);
-				auto c = math::random_float(0.0f, 1.0f);
-				auto d = math::random_float(0.0f, DirectX::XM_2PI);
-
-				spread_values[i][0] = a;
-				spread_values[i][1] = c;
-
-				auto sin_b = 0.0f, cos_b = 0.0f;
-				DirectX::XMScalarSinCos(&sin_b, &cos_b, b);
-
-				auto sin_d = 0.0f, cos_d = 0.0f;
-				DirectX::XMScalarSinCos(&sin_d, &cos_d, d);
-
-				spread_values[i][2] = sin_b;
-				spread_values[i][3] = cos_b;
-				spread_values[i][4] = sin_d;
-				spread_values[i][5] = cos_d;
-			}
+			final_hitchance = (static_cast<float>(current) / 255.f) * 100.f;
+			return true;
 		}
 
-		auto hits = 0;
-
-		for (auto i = 0; i < 256; ++i)
+		// abort if we can no longer reach hitchance.
+		if ((static_cast<float>(current + 255 - i) / 255.f) * 100.f < hitchance_cfg)
 		{
-			auto inaccuracy = spread_values[i][0] * csgo.globals.inaccuracy;
-			auto spread = spread_values[i][1] * csgo.globals.spread;
-
-			auto spread_x = spread_values[i][3] * inaccuracy + spread_values[i][5] * spread;
-			auto spread_y = spread_values[i][2] * inaccuracy + spread_values[i][4] * spread;
-
-			auto direction = ZERO;
-
-			direction.x = forward.x + right.x * spread_x + up.x * spread_y;
-			direction.y = forward.y + right.y * spread_x + up.y * spread_y;
-			direction.z = forward.z + right.z * spread_x + up.z * spread_y; //-V778
-
-			auto end = csgo.globals.eye_pos + direction * weapon_info->flRange;
-
-			if (hitbox_intersection(final_target.record->player, final_target.record->matrixes_data.main, final_target.data.hitbox, csgo.globals.eye_pos, end))
-				++hits;
-		}
-
-		final_hitchance = (int)((float)hits / 2.56f);
-	}
-
-	if (csgo.globals.double_tap_aim)
-		return final_hitchance;
-
-	auto damage = 0;
-	auto high_accuracy_weapon = csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_AWP || csgo.globals.weapon->m_iItemDefinitionIndex() == WEAPON_SSG08;
-
-	auto spread = csgo.globals.spread + csgo.globals.inaccuracy;
-
-	for (auto i = 1; i <= 6; ++i)
-	{
-		for (auto j = 0; j < 8; ++j)
-		{
-			auto current_spread = spread * ((float)i / 6.0f);
-
-			auto direction_cos = 0.0f;
-			auto direction_sin = 0.0f;
-
-			DirectX::XMScalarSinCos(&direction_cos, &direction_sin, (float)j / 8.0f * DirectX::XM_2PI);
-
-			auto spread_x = direction_cos * current_spread;
-			auto spread_y = direction_sin * current_spread;
-
-			auto direction = ZERO;
-
-			direction.x = forward.x + spread_x * right.x + spread_y * up.x;
-			direction.y = forward.y + spread_x * right.y + spread_y * up.y;
-			direction.z = forward.z + spread_x * right.z + spread_y * up.z;
-
-			auto end = csgo.globals.eye_pos + direction * weapon_info->flRange;
-
-			if (hitbox_intersection(final_target.record->player, final_target.record->matrixes_data.main, final_target.data.hitbox, csgo.globals.eye_pos, end))
-			{
-				auto fire_data = autowall::get().wall_penetration(csgo.globals.eye_pos, end, final_target.record->player);
-				auto valid_hitbox = true;
-
-				if (final_target.data.hitbox == HITBOX_HEAD && fire_data.hitbox != HITBOX_HEAD)
-					valid_hitbox = false;
-
-				if (fire_data.valid && fire_data.damage >= 1 && valid_hitbox)
-					damage += high_accuracy_weapon ? fire_data.damage : 1;
-			}
+			final_hitchance = (static_cast<float>(current + 255 - i) / 255.f) * 100.f;
+			return false;
 		}
 	}
 
-	if (high_accuracy_weapon)
-		return (float)damage / 48.0f >= get_minimum_damage(final_target.data.visible, final_target.health) ? final_hitchance : 0;
-
-	return (float)damage / 48.0f >= (float)vars.ragebot.weapon[csgo.globals.current_weapon].hitchance_amount * 0.01f ? final_hitchance : 0;
+	final_hitchance = (static_cast<float>(current) / 255.f) * 100.f;
+	return (static_cast<float>(current) / 255.f) * 100.f >= hitchance_cfg;
 }
 
 /*wanna using original hitchance
