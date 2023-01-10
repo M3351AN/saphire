@@ -96,7 +96,7 @@ DWORD WINAPI main(PVOID base)
 			453,//
 			484,//
 			285,//WEAPONSHOOTPOSITION
-			226,//
+			224,//update_clientside_anim
 			247,//
 			27,//
 			17,//
